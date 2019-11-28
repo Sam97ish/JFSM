@@ -320,6 +320,38 @@ public class Automate implements Cloneable {
 
 		return ok;
 	}
+	// new methode that returns true if the state is accessible
+	public boolean isAccessible(String name) {
+		
+		//creating a list of all the cibles of all the transitions
+		ArrayList<String> l_cible = new ArrayList<String>();
+		
+		//creating a list of all the transitions
+		ArrayList<Transition> l_trans = new ArrayList<Transition>();
+		l_trans.addAll(mu);
+		
+		//while to add all the cibles to the list l_cible
+		while(!(l_trans.isEmpty())) {
+			for(int i=0 ; i < l_trans.size() ; i++) {
+				Transition temp = l_trans.get(i);
+				if((this.isInitial(temp.source)) && !(l_cible.contains(temp.cible))) {
+					l_cible.add(temp.cible);
+				}
+				if(l_cible.contains(temp.source) && !(l_cible.contains(temp.cible))){
+					l_cible.add(temp.cible);
+				}
+				l_trans.remove(i);
+				
+			}
+		}
+		//test if the state is accessible or not
+		if(l_cible.contains(name)) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
 
 	/** 
 	* Permet de transformer l'automate en un automate standard  

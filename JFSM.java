@@ -168,11 +168,15 @@ public class JFSM {
       //System.out.println(afn3.estStandard()); expect false
       
       //test de afn (Standardiser)
-      System.out.println(afn3.estStandard());
+     /* System.out.println(afn3.estStandard());
       System.out.println("after Standardiser");
       System.out.println(afn3.standardiser());
       Automate afn3_standarised = afn3.standardiser();
       System.out.println(afn3_standarised .estStandard());
+      */
+      //test isAccessible avec afn and the state 4
+      System.out.println("test isAccessible avec afn and the state 4");
+      System.out.println(afn.isAccessible("4"));
       
       /*
       System.out.println(afn3);
