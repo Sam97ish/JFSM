@@ -349,7 +349,7 @@ public class Automate implements Cloneable {
 			return true;
 		}else {
 			return false;
-		} 
+		}  
 		
 	}
 
