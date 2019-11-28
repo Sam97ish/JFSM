@@ -174,6 +174,7 @@ public class JFSM {
       Automate afn3_standarised = afn3.standardiser();
       System.out.println(afn3_standarised .estStandard());
       
+      //finally got it to work
       /*
       System.out.println(afn3);
       System.out.println(afn3.run(l2));
