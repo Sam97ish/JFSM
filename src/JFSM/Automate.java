@@ -43,6 +43,7 @@ import java.util.HashSet;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Queue;
 
 import java.util.Map;
@@ -302,6 +303,25 @@ public class Automate implements Cloneable {
 	public Automate emonder() {
 		System.out.println("emonder() : méthode non implémentée");
 		Automate afn = (Automate) this.clone();
+		
+		/*ArrayList<String> l_etat = new ArrayList<String>();
+		l_etat.addAll((Collection<? extends String>) afn.Q);*/
+		
+		//Getting Collection of values from Map 
+		Collection<Etat> values = this.Q.values();
+		
+		//Creating an ArrayList of values 
+		ArrayList<Etat> l_etat = new ArrayList<Etat>(values);
+		
+		for(int i=0 ; i <= l_etat.size(); i++) {
+			if(!(l_etat.get(i).estUtile())){
+				
+				
+				
+			}
+		}
+		
+		
 
 		// A compléter
 
@@ -320,11 +340,21 @@ public class Automate implements Cloneable {
 
 		return ok;
 	}
-	// new methode that returns true if the state is accessible
+	
+	
+	/**
+	 * Method that verifies whether the state is Accessible or not
+	 * @param name (the name of state)
+	 * @return  (true or false)
+	 */
 	public boolean isAccessible(String name) {
 		
-		//creating a list of all the cibles of all the transitions
-		ArrayList<String> l_cible = new ArrayList<String>();
+		if(this.isInitial(name)) {
+			return true;
+		}else{
+		
+		//creating a list of all the state that are accessible from the initial state
+		ArrayList<String> l_etatSuivant = new ArrayList<String>();
 		
 		//creating a list of all the transitions
 		ArrayList<Transition> l_trans = new ArrayList<Transition>();
@@ -334,23 +364,21 @@ public class Automate implements Cloneable {
 		while(!(l_trans.isEmpty())) {
 			for(int i=0 ; i < l_trans.size() ; i++) {
 				Transition temp = l_trans.get(i);
-				if((this.isInitial(temp.source)) && !(l_cible.contains(temp.cible))) {
-					l_cible.add(temp.cible);
+				if((this.isInitial(temp.source)) && !(l_etatSuivant.contains(temp.cible))) {   //adding the state if the source is initial 
+																						// and if the state does not already exist in l_etatSuivant
+					l_etatSuivant.add(temp.cible);
 				}
-				if(l_cible.contains(temp.source) && !(l_cible.contains(temp.cible))){
-					l_cible.add(temp.cible);
+				if(l_etatSuivant.contains(temp.source) && !(l_etatSuivant.contains(temp.cible))){  // adding the state if we can access it from the initial state through 
+																					   // another state(s) and if the state does not already exist in l_etatSuivant
+					l_etatSuivant.add(temp.cible);
 				}
 				l_trans.remove(i);
 				
 			}
 		}
-		//test if the state is accessible or not
-		if(l_cible.contains(name)) {
-			return true;
-		}else {
-			return false;
-		}   
-		
+		//return true if the state is accessible 
+		return(l_etatSuivant.contains(name));
+		}
 	}
 
 	/** 
