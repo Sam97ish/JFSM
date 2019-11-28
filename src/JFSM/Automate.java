@@ -315,7 +315,7 @@ public class Automate implements Cloneable {
 		
 		for(int i=0 ; i <= l_etat.size(); i++) {
 			if(!(l_etat.get(i).estUtile())){
-				l_etat.get(i).delete(this);
+				l_etat.get(i).removeEtat();
 			}
 		}
 		
@@ -334,17 +334,21 @@ public class Automate implements Cloneable {
 		System.out.println("estUtile() : méthode non implémentée");
 		boolean ok = false;
 
-		// A compléter
+		
 
 		return ok;
 	}
 	
+
+	// new methode that returns true if the state is accessible
+
 	
 	/**
 	 * Method that verifies whether the state is Accessible or not
 	 * @param name (the name of state)
 	 * @return  (true or false)
 	 */
+
 	public boolean isAccessible(String name) {
 		
 		if(this.isInitial(name)) {
@@ -377,6 +381,45 @@ public class Automate implements Cloneable {
 		//return true if the state is accessible 
 		return(l_etatSuivant.contains(name));
 		}
+	}
+	
+	/**
+	 * a method that checks if a given state is CoAccessible by giving it it's name .
+	 * @param name
+	 * @return boolean
+	 */
+	public boolean isCoaccessible(String name) {
+		
+		//list containing all the states in the automata that are connected to the final state
+		ArrayList<String> l_etatprec = new ArrayList<String>();
+		
+		//list of all the transitions in the automate
+		ArrayList<Transition> l_trans = new ArrayList<Transition>();
+		l_trans.addAll(mu);
+		
+		
+		while(!(l_trans.isEmpty())){
+			
+			for(int i = 0; i < l_trans.size(); i++) {
+				Transition temp = l_trans.get(i);
+				
+				//adds the source of the transition that has a final state as it's cible. the second condition is to avoid repetition. 
+				if((this.isFinal(temp.cible) && !(l_etatprec.contains(temp.source)))){
+					l_etatprec.add(temp.source);
+				}
+				
+				//adds the source of the transition if it's cible is in the list. the second condition is to avoid repetition. 
+				if(l_etatprec.contains(temp.cible) && !(l_etatprec.contains(temp.source))){
+					l_etatprec.add(temp.source);
+				}
+				
+				l_trans.remove(i);
+				
+			}
+		}
+		
+		return l_etatprec.contains(name);
+		
 	}
 
 	/** 
