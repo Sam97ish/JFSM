@@ -178,6 +178,7 @@ public class JFSM {
       System.out.println("test isAccessible avec afn and the state 4");
       System.out.println(afn.isAccessible("4"));
       
+      //finally got it to work
       /*
       System.out.println(afn3);
       System.out.println(afn3.run(l2));
