@@ -68,5 +68,22 @@ public class Etat  implements Cloneable {
 		}
 		return o;
 	}
+	
+	 /**
+	  * Method that verifies whether the state is utile or not
+	  * @return (true or false)
+	  */
+	public boolean estUtile() {
+		//TODO
+		System.out.println("estUtile() : méthode non implémentée");
+		return true;
+	}
+	/**
+	 * Method that delete a state after deleting all it's transition
+	 */
+	public void delete() {
+		//TODO
+		System.out.println("estUtile() : méthode non implémentée");
+	}
 }
 
