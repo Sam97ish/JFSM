@@ -315,15 +315,13 @@ public class Automate implements Cloneable {
 		
 		for(int i=0 ; i <= l_etat.size(); i++) {
 			if(!(l_etat.get(i).estUtile())){
-				
-				
-				
+				l_etat.get(i).delete(this);
 			}
 		}
 		
 		
 
-		// A compléter
+		// A compléter (complete the Method delete() in Etat)
 
 		return afn;
 	}
