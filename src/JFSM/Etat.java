@@ -81,7 +81,7 @@ public class Etat  implements Cloneable {
 	/**
 	 * Method that delete a state after deleting all it's transition
 	 */
-	public void removeEtat() {
+	public void removeEtat(Automate afn) {
 
 		//TODO
 		System.out.println("estUtile() : méthode non implémentée");
