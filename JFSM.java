@@ -193,10 +193,16 @@ public class JFSM {
       System.out.println("Epsilon Libre ? "+afn3.epsilonLibre());
        */
       
-    //testing the removeEtat
-      System.out.println(afn3);
-      afn3.getEtat("9").removeEtat(afn3);
-      System.out.println(afn3);
+    //testing the removeEtat and isAccessible
+      System.out.println(afn);
+      afn.getEtat("4").removeEtat(afn);
+      System.out.println(afn);
+      
+      System.out.println(afn.isAccessible("5")); // expected false because we deleted state 4 got false
+
+      
+      
+      
 
    }
 }

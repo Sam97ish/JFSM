@@ -355,31 +355,41 @@ public class Automate implements Cloneable {
 			return true;
 		}else{
 		
-		//creating a list of all the state that are accessible from the initial state
-		ArrayList<String> l_etatSuivant = new ArrayList<String>();
+			//creating a list of all the state that are accessible from the initial state
+			ArrayList<String> l_etatSuivant = new ArrayList<String>();
 		
-		//creating a list of all the transitions
-		ArrayList<Transition> l_trans = new ArrayList<Transition>();
-		l_trans.addAll(mu);
+			//creating a list of all the transitions
+			ArrayList<Transition> l_trans = new ArrayList<Transition>();
+			l_trans.addAll(mu);
 		
-		//while to add all the cibles to the list l_cible
-		while(!(l_trans.isEmpty())) {
-			for(int i=0 ; i < l_trans.size() ; i++) {
-				Transition temp = l_trans.get(i);
-				if((this.isInitial(temp.source)) && !(l_etatSuivant.contains(temp.cible))) {   //adding the state if the source is initial 
-																						// and if the state does not already exist in l_etatSuivant
-					l_etatSuivant.add(temp.cible);
+			//while to add all the cibles to the list l_cible
+			for(int h=0 ; h <= l_trans.size() ; h++) {
+				for(int i=0 ; i < l_trans.size() ; i++) {
+					Transition temp = l_trans.get(i);
+					if((this.isInitial(temp.source))) {   //adding the state if the source is initial 
+						
+						if(!(l_etatSuivant.contains(temp.cible))){ // and if the state does not already exist in l_etatSuivant
+							l_etatSuivant.add(temp.cible);
+						}
+																						
+						l_trans.remove(i); //deleting the transitions that have been treated
+
+					}
 				}
-				if(l_etatSuivant.contains(temp.source) && !(l_etatSuivant.contains(temp.cible))){  // adding the state if we can access it from the initial state through 
-																					   // another state(s) and if the state does not already exist in l_etatSuivant
-					l_etatSuivant.add(temp.cible);
+				for(int i=0 ; i < l_trans.size() ; i++) {
+					Transition temp = l_trans.get(i);
+					if(l_etatSuivant.contains(temp.source)){  // adding the state if we can access it from the initial state through 
+												              // another state(s) and if the state does not already exist in l_etatSuivant
+						if(!(l_etatSuivant.contains(temp.cible))) {
+							l_etatSuivant.add(temp.cible);
+						}
+						l_trans.remove(i);  //deleting the transitions that have been treated
+					}
 				}
-				l_trans.remove(i);
-				
 			}
-		}
-		//return true if the state is accessible 
-		return(l_etatSuivant.contains(name));
+			
+			//return true if the state is accessible 	
+			return(l_etatSuivant.contains(name));
 		}
 	}
 	
