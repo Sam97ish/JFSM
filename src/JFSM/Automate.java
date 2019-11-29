@@ -74,42 +74,42 @@ public class Automate implements Cloneable {
 
 	/** 
 	* Constructeur de l'automate {A,Q,I,F,mu}
-	* @param A l'alphabet de l'automate (toute chaîne de caratères non vide et différente de \u03b5)
-	* @param Q l'ensemble des états de l'automate
-	* @param I l'ensemble des états initiaux de l'automate
-	* @param F l'ensemble des états finaux de l'automate
+	* @param A l'alphabet de l'automate (toute chaÃ®ne de caratÃ¨res non vide et diffÃ©rente de \u03b5)
+	* @param Q l'ensemble des Ã©tats de l'automate
+	* @param I l'ensemble des Ã©tats initiaux de l'automate
+	* @param F l'ensemble des Ã©tats finaux de l'automate
 	* @param mu la fonction de transition de l'automate
-	* @exception JFSMException Exception si un état qui n'existe pas est ajouté comme état initial ou final
+	* @exception JFSMException Exception si un Ã©tat qui n'existe pas est ajoutÃ© comme Ã©tat initial ou final
 	*/
 	public Automate(Set<String> A, Set<Etat> Q, Set<String> I, Set<String> F, Set<Transition> mu) throws JFSMException {
 		// Ajout de l'alphabet
-		assert A.size()>0 : "A ne peut pas être vide" ;
+		assert A.size()>0 : "A ne peut pas Ãªtre vide" ;
 		for(String a : A) {
-			if ((a=="")||(a=="\u03b5")) throw new JFSMException("Un symbole ne peut pas être vide ou \u03b5");
+			if ((a=="")||(a=="\u03b5")) throw new JFSMException("Un symbole ne peut pas Ãªtre vide ou \u03b5");
 		}
 		this.A = A;
 		this.mu = new HashSet<Transition>();
 
-		// Ajout des états
-		assert Q.size()>0 : "Q ne peut pas être vide" ;
+		// Ajout des Ã©tats
+		assert Q.size()>0 : "Q ne peut pas Ãªtre vide" ;
 		this.Q = new HashMap<String,Etat>();
 
 		for (Etat e : Q)
-			if (this.Q.containsKey(e.name)) System.out.println("Etat dupliqué ! Seule une version sera conservée.");
+			if (this.Q.containsKey(e.name)) System.out.println("Etat dupliquÃ© ! Seule une version sera conservÃ©e.");
 			else this.Q.put(e.name,e); 
 		
-		// Création de l'historique (chemin)
+		// CrÃ©ation de l'historique (chemin)
 		this.histo = new Stack<Transition>();
 
 		// Ajout des transitions
 		this.mu.addAll(mu);
 
-		// On collecte les états initiaux, on les positionne comme tel. S'il n'existe pas, il est oublié.
-		// assert I.size()>0 : "I ne peut pas être vide" ;
+		// On collecte les Ã©tats initiaux, on les positionne comme tel. S'il n'existe pas, il est oubliÃ©.
+		// assert I.size()>0 : "I ne peut pas Ãªtre vide" ;
 		this.I = new HashSet<String>();
 		for (String i : I) setInitial(i);
 
-		// On collecte les états finaux, on les positionne comme tel. S'il n'existe pas, il est oublié.
+		// On collecte les Ã©tats finaux, on les positionne comme tel. S'il n'existe pas, il est oubliÃ©.
 		this.F = new HashSet<String>();
 		for(String f : F) setFinal(f);
 	}
@@ -155,16 +155,16 @@ public class Automate implements Cloneable {
 	}
 
 	/** 
-	* Ajoute une transition à mu.  
-	* @param t transition à ajouter
+	* Ajoute une transition Ã  mu.  
+	* @param t transition Ã  ajouter
 	*/
 	public void addTransition(Transition t) {
 		mu.add(t);
 	}
 
 	/** 
-	* Ajoute un état à Q.  
-	* @param e L'état
+	* Ajoute un Ã©tat Ã  Q.  
+	* @param e L'Ã©tat
 	*/
 	public void addEtat(Etat e){
 		if (!Q.containsKey(e.name))
@@ -172,9 +172,9 @@ public class Automate implements Cloneable {
 	}
 
 	/** 
-	* Retrouve un état par son nom.  
-	* @param n Le nom de l'état 
-	* @return l'état retrouvé, null sinon
+	* Retrouve un Ã©tat par son nom.  
+	* @param n Le nom de l'Ã©tat 
+	* @return l'Ã©tat retrouvÃ©, null sinon
 	*/
 	public Etat getEtat(String n) {
 		if (Q.containsKey(n))
@@ -191,9 +191,9 @@ public class Automate implements Cloneable {
 	}
 
 	/** 
-	* Indique qu'un état (par son nom) est un état initial.  
-	* @param e Le nom de l'état
-	* @exception JFSMException Si l'état est absent
+	* Indique qu'un Ã©tat (par son nom) est un Ã©tat initial.  
+	* @param e Le nom de l'Ã©tat
+	* @exception JFSMException Si l'Ã©tat est absent
 	*/
 	public void setInitial(String e) throws JFSMException {	
 		if (Q.containsKey(e)) {
@@ -202,18 +202,18 @@ public class Automate implements Cloneable {
 	}
 
 	/** 
-	* Indique qu'un état est un état initial.  
-	* @param e L'état
-	* @exception JFSMException Si l'état est absent
+	* Indique qu'un Ã©tat est un Ã©tat initial.  
+	* @param e L'Ã©tat
+	* @exception JFSMException Si l'Ã©tat est absent
 	*/
 	public void setInitial(Etat e) throws JFSMException {	
 		setInitial(e.name);
 	}
 
 	/** 
-	* Indique qu'un état (par son nom) est un état final.  
-	* @param e Le nom de l'état
-	* @exception JFSMException Si l'état est absent
+	* Indique qu'un Ã©tat (par son nom) est un Ã©tat final.  
+	* @param e Le nom de l'Ã©tat
+	* @exception JFSMException Si l'Ã©tat est absent
 	*/
 	public void setFinal(String e) throws JFSMException {	
 		if (Q.containsKey(e)) {
@@ -222,27 +222,27 @@ public class Automate implements Cloneable {
 	}
 
 	/** 
-	* Indique qu'un état est un état final.  
-	* @param e L'état
-	* @exception JFSMException Si l'état est absent
+	* Indique qu'un Ã©tat est un Ã©tat final.  
+	* @param e L'Ã©tat
+	* @exception JFSMException Si l'Ã©tat est absent
 	*/
 	public void setFinal(Etat e) throws JFSMException {	
 		setFinal(e.name);
 	}
 
 	/** 
-	* Détermine si un état (par son nom) est un état initial.  
-	* @param e Le nom de l'état
+	* DÃ©termine si un Ã©tat (par son nom) est un Ã©tat initial.  
+	* @param e Le nom de l'Ã©tat
 	* @return vrai si initial, faux sinon
 	*/
 	public boolean isInitial(String e){
-		assert Q.containsKey(e) : "isInitial : l'état doit être un état de l'automate." ;
+		assert Q.containsKey(e) : "isInitial : l'Ã©tat doit Ãªtre un Ã©tat de l'automate." ;
 		return I.contains(e);
 	}
 
 	/** 
-	* Détermine si un état est un état initial.  
-	* @param e L'état
+	* DÃ©termine si un Ã©tat est un Ã©tat initial.  
+	* @param e L'Ã©tat
 	* @return vrai si initial, faux sinon
 	*/
 	public boolean isInitial(Etat e){
@@ -250,18 +250,18 @@ public class Automate implements Cloneable {
 	}
 
 	/** 
-	* Détermine si un état (par son nom) est un état final.  
-	* @param e Le nom de l'état
+	* DÃ©termine si un Ã©tat (par son nom) est un Ã©tat final.  
+	* @param e Le nom de l'Ã©tat
 	* @return vrai si final, faux sinon
 	*/
 	public boolean isFinal(String e){
-		assert Q.containsKey(e) : "isFinal : l'état doit être un état de l'automate." ;
+		assert Q.containsKey(e) : "isFinal : l'Ã©tat doit Ãªtre un Ã©tat de l'automate." ;
 		return F.contains(e);
 	}
 
 	/** 
-	* Détermine si un état est un état final.  
-	* @param e L'état
+	* DÃ©termine si un Ã©tat est un Ã©tat final.  
+	* @param e L'Ã©tat
 	* @return vrai si final, faux sinon
 	*/
 	public boolean isFinal(Etat e){
@@ -269,14 +269,14 @@ public class Automate implements Cloneable {
 	}
 
 	/** 
-	* Initialise l'exécution de l'automate.  
+	* Initialise l'exÃ©cution de l'automate.  
 	*/
 	public void init() {
 		histo.clear();
 	}
 
 	/** 
-	* Indique si l'automate est dans un état final.  
+	* Indique si l'automate est dans un Ã©tat final.  
 	* @return vrai si final, faux sinon
 	*/
 	public boolean accepte(){return isFinal(current);}
@@ -297,45 +297,61 @@ public class Automate implements Cloneable {
 	}
 
 	/** 
-	* Supprime les états qui ne sont pas utiles (accessible et co-accessible)  
-	* @return un automate équivalent utile (tous les états sont utiles)
+	* Supprime les Ã©tats qui ne sont pas utiles (accessible et co-accessible)  
+	* @return un automate Ã©quivalent utile (tous les Ã©tats sont utiles)
 	*/
 	public Automate emonder() {
-		System.out.println("emonder() : méthode non implémentée");
+		System.out.println("emonder() : mÃ©thode non implÃ©mentÃ©e");
 		Automate afn = (Automate) this.clone();
 		
 		/*ArrayList<String> l_etat = new ArrayList<String>();
 		l_etat.addAll((Collection<? extends String>) afn.Q);*/
 		
-		//Getting Collection of values from Map 
+		//Getting a Collection of values from Map 
 		Collection<Etat> values = this.Q.values();
 		
 		//Creating an ArrayList of values 
 		ArrayList<Etat> l_etat = new ArrayList<Etat>(values);
 		
 		for(int i=0 ; i <= l_etat.size(); i++) {
-			if(!(l_etat.get(i).estUtile())){
+
+			if(!(l_etat.get(i).estUtile(this))){
 				l_etat.get(i).removeEtat(this);
+
 			}
 		}
 		
 		
 
-		// A compléter (complete the Method delete() in Etat)
+		// A complÃ©ter (complete the Method delete() in Etat)
 
 		return afn;
 	}
 
 	/** 
-	* Détermine si l'automate est utile  
-	* @return booléen
+	* DÃ©termine si l'automate est utile  
+	* @return boolÃ©en
 	*/
 	public boolean estUtile() {
-		System.out.println("estUtile() : méthode non implémentée");
-		boolean ok = false;
-
+		System.out.println("estUtile() ");
+		boolean ok = true;
 		
-
+		//Getting a Collection of values from Map 
+		Collection<Etat> values = this.Q.values();
+		
+		//Creating an ArrayList of values 
+		ArrayList<Etat> l_etat = new ArrayList<Etat>(values);
+		
+		int i = 0;
+		
+		//checking if all states are utile
+		while( i < l_etat.size() && ok) {
+			System.out.println(ok);
+			System.out.println(l_etat.get(i));
+			ok = l_etat.get(i).estUtile(this);
+			i += 1;
+		}
+		
 		return ok;
 	}
 	
@@ -387,9 +403,13 @@ public class Automate implements Cloneable {
 					}
 				}
 			}
+
 			
 			//return true if the state is accessible 	
 			return(l_etatSuivant.contains(name));
+
+		}
+
 		}
 	}
 	
@@ -400,44 +420,48 @@ public class Automate implements Cloneable {
 	 */
 	public boolean isCoaccessible(String name) {
 		
-		//list containing all the states in the automata that are connected to the final state
-		ArrayList<String> l_etatprec = new ArrayList<String>();
+		if(this.isFinal(name)) {
+			return true;
+		}else {
 		
-		//list of all the transitions in the automate
-		ArrayList<Transition> l_trans = new ArrayList<Transition>();
-		l_trans.addAll(mu);
-		
-		
-		while(!(l_trans.isEmpty())){
+			//list containing all the states in the automata that are connected to the final state
+			ArrayList<String> l_etatprec = new ArrayList<String>();
 			
-			for(int i = 0; i < l_trans.size(); i++) {
-				Transition temp = l_trans.get(i);
+			//list of all the transitions in the automate
+			ArrayList<Transition> l_trans = new ArrayList<Transition>();
+			l_trans.addAll(mu);
+			
+			
+			while(!(l_trans.isEmpty())){
 				
-				//adds the source of the transition that has a final state as it's cible. the second condition is to avoid repetition. 
-				if((this.isFinal(temp.cible) && !(l_etatprec.contains(temp.source)))){
-					l_etatprec.add(temp.source);
+				for(int i = 0; i < l_trans.size(); i++) {
+					Transition temp = l_trans.get(i);
+					
+					//adds the source of the transition that has a final state as it's cible. the second condition is to avoid repetition. 
+					if((this.isFinal(temp.cible) && !(l_etatprec.contains(temp.source)))){
+						l_etatprec.add(temp.source);
+					}
+					
+					//adds the source of the transition if it's cible is in the list. the second condition is to avoid repetition. 
+					if(l_etatprec.contains(temp.cible) && !(l_etatprec.contains(temp.source))){
+						l_etatprec.add(temp.source);
+					}
+					
+					l_trans.remove(i);
+					
 				}
-				
-				//adds the source of the transition if it's cible is in the list. the second condition is to avoid repetition. 
-				if(l_etatprec.contains(temp.cible) && !(l_etatprec.contains(temp.source))){
-					l_etatprec.add(temp.source);
-				}
-				
-				l_trans.remove(i);
-				
 			}
+			System.out.println(l_etatprec);
+			return l_etatprec.contains(name);
 		}
-		
-		return l_etatprec.contains(name);
-		
 	}
 
 	/** 
 	* Permet de transformer l'automate en un automate standard  
-	* @return un automate équivalent standard
+	* @return un automate Ã©quivalent standard
 	*/
 	public Automate standardiser() {
-		System.out.println("standardiser() : méthode non implémentée");
+		System.out.println("standardiser() : mÃ©thode non implÃ©mentÃ©e");
 		Automate afn = (Automate) this.clone();
 		
 		if (!(afn.estStandard())) {
@@ -513,7 +537,7 @@ public class Automate implements Cloneable {
 		
 		
 		}
-		// A compléter
+		// A complÃ©ter
 		return afn;
 	}
 		
@@ -523,11 +547,11 @@ public class Automate implements Cloneable {
 	
 
 	/** 
-	* Détermine si l'automate est standard  
-	* @return booléen
+	* DÃ©termine si l'automate est standard  
+	* @return boolÃ©en
 	*/
 	public boolean estStandard() {
-		System.out.println("estStandard() : implémentée");
+		System.out.println("estStandard() : implÃ©mentÃ©e");
 		boolean ok = true;
 		
 		//case where there is more than one initial state
@@ -550,33 +574,33 @@ public class Automate implements Cloneable {
 			i += 1;
 		}
 
-		// A compléter
+		// A complÃ©ter
 		
 		return ok;
 	}
 
 	/** 
-	* Permet de transformer l'automate en un automate normalisé  
-	* @return un automate équivalent normalisé
+	* Permet de transformer l'automate en un automate normalisÃ©  
+	* @return un automate Ã©quivalent normalisÃ©
 	*/
 	public Automate normaliser() {
-		System.out.println("normaliser() : méthode non implémentée");
+		System.out.println("normaliser() : mÃ©thode non implÃ©mentÃ©e");
 		Automate afn = (Automate) this.clone();
 
-		// A compléter
+		// A complÃ©ter
 
 		return afn;
 	}
 
 	/** 
-	* Détermine si l'automate est normalisé  
-	* @return booléen
+	* DÃ©termine si l'automate est normalisÃ©  
+	* @return boolÃ©en
 	*/
 	public boolean estNormalise() {
-		System.out.println("estNormalise() : méthode non implémentée");
+		System.out.println("estNormalise() : mÃ©thode non implÃ©mentÃ©e");
 		boolean ok = false;
 
-		// A compléter
+		// A complÃ©ter
 		
 		return ok;
 	}
@@ -587,19 +611,19 @@ public class Automate implements Cloneable {
 	* @return un automate reconnaissant le produit
 	*/
 	public Automate produit(Automate a) {
-		System.out.println("produit() : méthode non implémentée");
+		System.out.println("produit() : mÃ©thode non implÃ©mentÃ©e");
 		return a;
 	}
 
 	/** 
-	* Construit un automate reconnaissant le langage de l'automate à l'étoile : L(this)*
-	* @return un automate reconnaissant la mise à l'étoile
+	* Construit un automate reconnaissant le langage de l'automate Ã  l'Ã©toile : L(this)*
+	* @return un automate reconnaissant la mise Ã  l'Ã©toile
 	*/
 	public Automate etoile() {
-		System.out.println("etoile() : méthode non implémentée");
+		System.out.println("etoile() : mÃ©thode non implÃ©mentÃ©e");
 		Automate afn = (Automate) this.clone();
 
-		// A compléter
+		// A complÃ©ter
 
 		return afn;
 	}
@@ -610,7 +634,7 @@ public class Automate implements Cloneable {
 	* @return un automate reconnaissant l'union
 	*/
 	public Automate union(Automate a) {
-		System.out.println("union() : méthode non implémentée");
+		System.out.println("union() : mÃ©thode non implÃ©mentÃ©e");
 		return a;
 	}
 
@@ -620,16 +644,16 @@ public class Automate implements Cloneable {
 	* @return un automate reconnaissant l'intersection
 	*/
 	public Automate intersection(Automate a) {
-		System.out.println("intersection() : méthode non implémentée");
+		System.out.println("intersection() : mÃ©thode non implÃ©mentÃ©e");
 		return a;
 	}
 
 	/** 
-	* Construit un automate reconnaissant le complémentaire du langage 
-	* @return un automate reconnaissant le complémentaire
+	* Construit un automate reconnaissant le complÃ©mentaire du langage 
+	* @return un automate reconnaissant le complÃ©mentaire
 	*/
 	public Automate complementaire() {
-		System.out.println("complémentaire() : méthode non implémentée");
+		System.out.println("complÃ©mentaire() : mÃ©thode non implÃ©mentÃ©e");
 		return this;
 	}
 
@@ -638,46 +662,46 @@ public class Automate implements Cloneable {
 	* @return l'automate complet
 	*/
 	public Automate complet() {
-		System.out.println("complet() : méthode non implémentée");
+		System.out.println("complet() : mÃ©thode non implÃ©mentÃ©e");
 		return this;
 	}
 
 	/** 
 	* Teste si un automate est complet
-	* @return booléen
+	* @return boolÃ©en
 	*/
 	public boolean estComplet() {
-		System.out.println("estComplet() : méthode non implémentée");
+		System.out.println("estComplet() : mÃ©thode non implÃ©mentÃ©e");
 		return true;
 	}
 
 	/** 
-	* Construit un automate reconnaissant le langage transposé
+	* Construit un automate reconnaissant le langage transposÃ©
 	* @return l'automate complet
 	*/
 	public Automate transpose() {
-		System.out.println("transpose() : méthode non implémentée");
+		System.out.println("transpose() : mÃ©thode non implÃ©mentÃ©e");
 		return this;
 	}
 
 	/** 
-	* Détermine des transitions possibles que peut emprunter l'automate en fonction de l'état courant et du symbole courant
+	* DÃ©termine des transitions possibles que peut emprunter l'automate en fonction de l'Ã©tat courant et du symbole courant
 	* @param symbol le symbole
-	* @exception JFSMException Exception levée si la méthode n'est pas implémentée
+	* @exception JFSMException Exception levÃ©e si la mÃ©thode n'est pas implÃ©mentÃ©e
 	* @return la liste des transitions possibles 
 	*/
 	public Queue<Transition> next(String symbol) throws JFSMException  {
-		throw new JFSMException("Méthode next non implémentée");
+		throw new JFSMException("MÃ©thode next non implÃ©mentÃ©e");
 	}
 
 	/** 
-	* Exécute l'automate sur un mot (une liste de symboles)
+	* ExÃ©cute l'automate sur un mot (une liste de symboles)
 	* @param l la liste de symboles
-	* @return un booléen indiquant sur le mot est reconnu 
-	* @exception JFSMException Exception levée si la méthode n'est pas implémentée
+	* @return un boolÃ©en indiquant sur le mot est reconnu 
+	* @exception JFSMException Exception levÃ©e si la mÃ©thode n'est pas implÃ©mentÃ©e
 	*/
 	public boolean run(List<String> l) throws JFSMException  {
-		throw new JFSMException("Méthode run non implémentée");
+		throw new JFSMException("MÃ©thode run non implÃ©mentÃ©e");
 	}
 
 	/** 
@@ -727,7 +751,7 @@ public class Automate implements Cloneable {
 			saxParser.setErrorHandler(handler);
 			saxParser.parse( file ); 
 		} catch (Exception e) {
-			System.out.println("Exception capturée : ");
+			System.out.println("Exception capturÃ©e : ");
 			e.printStackTrace(System.out);
 			return null;
 		}
