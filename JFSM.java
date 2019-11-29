@@ -174,6 +174,13 @@ public class JFSM {
       Automate afn3_standarised = afn3.standardiser();
       System.out.println(afn3_standarised .estStandard());
       */
+
+      /*
+      //test isAccessible avec afn and the state 4
+      System.out.println("test isAccessible avec afn and the state 4");
+      System.out.println(afn.isAccessible("4"));
+      */
+
       
       //FIXME : the methode isAccessible for the state 3 should return true but is returing false.
      /* 
@@ -197,6 +204,7 @@ public class JFSM {
       System.out.println(afn.estUtile());
       */
       
+
       //finally got it to work
       /*
       System.out.println(afn3);
@@ -209,6 +217,18 @@ public class JFSM {
 
       System.out.println(afn3);
       System.out.println("Epsilon Libre ? "+afn3.epsilonLibre());
-*/
+       */
+      
+    //testing the removeEtat and isAccessible
+      System.out.println(afn);
+      afn.getEtat("4").removeEtat(afn);
+      System.out.println(afn);
+      
+      System.out.println(afn.isAccessible("5")); // expected false because we deleted state 4 got false
+
+      
+      
+      
+
    }
 }

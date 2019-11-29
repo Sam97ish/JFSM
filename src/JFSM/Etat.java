@@ -27,6 +27,8 @@
 
 package JFSM ;
 
+import java.util.ArrayList;
+
 /**
  * Etat.java
  *
@@ -82,7 +84,24 @@ public class Etat  implements Cloneable {
 	/**
 	 * Method that delete a state after deleting all it's transition
 	 */
-	public void removeEtat() {
+	public void removeEtat(Automate afn) {
+		//making an ArrayList of all the transitions
+		ArrayList<Transition> l_trans = new ArrayList<Transition>();
+		l_trans.addAll(afn.mu);
+		
+		//looping all of the transitions and deleting the transition that include that state that will be removed
+		for(int i=0 ; i < l_trans.size() ; i++) {
+			Transition temp = l_trans.get(i);
+			if(temp.source.equals(this.toString())  || temp.cible.equals(this.toString())){
+				afn.mu.remove(temp);
+			}
+			
+		}
+		
+		afn.Q.remove(this.toString());
+		
+		if(afn.F.contains(this.toString())) { afn.F.remove(this.toString());}
+		if(afn.I.contains(this.toString())) { afn.I.remove(this.toString());}
 
 		//TODO
 		System.out.println("estUtile() : méthode non implémentée");
