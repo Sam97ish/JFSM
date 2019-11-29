@@ -174,9 +174,28 @@ public class JFSM {
       Automate afn3_standarised = afn3.standardiser();
       System.out.println(afn3_standarised .estStandard());
       */
+      
+      //FIXME : the methode isAccessible for the state 3 should return true but is returing false.
+     /* 
       //test isAccessible avec afn and the state 4
-      System.out.println("test isAccessible avec afn and the state 4");
-      System.out.println(afn.isAccessible("4"));
+      System.out.println("test isAccessible avec afn and the state 3");
+      //state 3,5 are missing from the list
+      System.out.println(afn.isAccessible("3"));
+      */
+      
+      //state 7 and 5 are missing from the list
+      System.out.println(afn3.isAccessible("5"));
+      
+      
+      //test isCoaccessible avec afn and the state 4
+      System.out.println("test isCoaccessible avec afn and the state 3");
+      System.out.println(afn.isCoaccessible("3"));
+      
+      /*
+      //test estUtile (automate) avec afn and the state 4
+      System.out.println("test if afn is Utile");
+      System.out.println(afn.estUtile());
+      */
       
       //finally got it to work
       /*

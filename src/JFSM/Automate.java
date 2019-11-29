@@ -307,14 +307,14 @@ public class Automate implements Cloneable {
 		/*ArrayList<String> l_etat = new ArrayList<String>();
 		l_etat.addAll((Collection<? extends String>) afn.Q);*/
 		
-		//Getting Collection of values from Map 
+		//Getting a Collection of values from Map 
 		Collection<Etat> values = this.Q.values();
 		
 		//Creating an ArrayList of values 
 		ArrayList<Etat> l_etat = new ArrayList<Etat>(values);
 		
 		for(int i=0 ; i <= l_etat.size(); i++) {
-			if(!(l_etat.get(i).estUtile())){
+			if(!(l_etat.get(i).estUtile(this))){
 				
 				
 				
@@ -333,11 +333,25 @@ public class Automate implements Cloneable {
 	* @return booléen
 	*/
 	public boolean estUtile() {
-		System.out.println("estUtile() : méthode non implémentée");
-		boolean ok = false;
-
+		System.out.println("estUtile() ");
+		boolean ok = true;
 		
-
+		//Getting a Collection of values from Map 
+		Collection<Etat> values = this.Q.values();
+		
+		//Creating an ArrayList of values 
+		ArrayList<Etat> l_etat = new ArrayList<Etat>(values);
+		
+		int i = 0;
+		
+		//checking if all states are utile
+		while( i < l_etat.size() && ok) {
+			System.out.println(ok);
+			System.out.println(l_etat.get(i));
+			ok = l_etat.get(i).estUtile(this);
+			i += 1;
+		}
+		
 		return ok;
 	}
 	
@@ -381,6 +395,7 @@ public class Automate implements Cloneable {
 			}
 		}
 		//return true if the state is accessible 
+		System.out.println(l_etatSuivant);
 		return(l_etatSuivant.contains(name));
 		}
 	}
@@ -392,36 +407,40 @@ public class Automate implements Cloneable {
 	 */
 	public boolean isCoaccessible(String name) {
 		
-		//list containing all the states in the automata that are connected to the final state
-		ArrayList<String> l_etatprec = new ArrayList<String>();
+		if(this.isFinal(name)) {
+			return true;
+		}else {
 		
-		//list of all the transitions in the automate
-		ArrayList<Transition> l_trans = new ArrayList<Transition>();
-		l_trans.addAll(mu);
-		
-		
-		while(!(l_trans.isEmpty())){
+			//list containing all the states in the automata that are connected to the final state
+			ArrayList<String> l_etatprec = new ArrayList<String>();
 			
-			for(int i = 0; i < l_trans.size(); i++) {
-				Transition temp = l_trans.get(i);
+			//list of all the transitions in the automate
+			ArrayList<Transition> l_trans = new ArrayList<Transition>();
+			l_trans.addAll(mu);
+			
+			
+			while(!(l_trans.isEmpty())){
 				
-				//adds the source of the transition that has a final state as it's cible. the second condition is to avoid repetition. 
-				if((this.isFinal(temp.cible) && !(l_etatprec.contains(temp.source)))){
-					l_etatprec.add(temp.source);
+				for(int i = 0; i < l_trans.size(); i++) {
+					Transition temp = l_trans.get(i);
+					
+					//adds the source of the transition that has a final state as it's cible. the second condition is to avoid repetition. 
+					if((this.isFinal(temp.cible) && !(l_etatprec.contains(temp.source)))){
+						l_etatprec.add(temp.source);
+					}
+					
+					//adds the source of the transition if it's cible is in the list. the second condition is to avoid repetition. 
+					if(l_etatprec.contains(temp.cible) && !(l_etatprec.contains(temp.source))){
+						l_etatprec.add(temp.source);
+					}
+					
+					l_trans.remove(i);
+					
 				}
-				
-				//adds the source of the transition if it's cible is in the list. the second condition is to avoid repetition. 
-				if(l_etatprec.contains(temp.cible) && !(l_etatprec.contains(temp.source))){
-					l_etatprec.add(temp.source);
-				}
-				
-				l_trans.remove(i);
-				
 			}
+			System.out.println(l_etatprec);
+			return l_etatprec.contains(name);
 		}
-		
-		return l_etatprec.contains(name);
-		
 	}
 
 	/** 
