@@ -174,10 +174,11 @@ public class JFSM {
       Automate afn3_standarised = afn3.standardiser();
       System.out.println(afn3_standarised .estStandard());
       */
+      /*
       //test isAccessible avec afn and the state 4
       System.out.println("test isAccessible avec afn and the state 4");
       System.out.println(afn.isAccessible("4"));
-      
+      */
       //finally got it to work
       /*
       System.out.println(afn3);
@@ -190,6 +191,12 @@ public class JFSM {
 
       System.out.println(afn3);
       System.out.println("Epsilon Libre ? "+afn3.epsilonLibre());
-*/
+       */
+      
+    //testing the removeEtat
+      System.out.println(afn3);
+      afn3.getEtat("9").removeEtat(afn3);
+      System.out.println(afn3);
+
    }
 }
