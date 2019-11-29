@@ -314,16 +314,21 @@ public class Automate implements Cloneable {
 		ArrayList<Etat> l_etat = new ArrayList<Etat>(values);
 		
 		for(int i=0 ; i <= l_etat.size(); i++) {
+<<<<<<< HEAD
 			if(!(l_etat.get(i).estUtile(this))){
 				
 				
 				
+=======
+			if(!(l_etat.get(i).estUtile())){
+				l_etat.get(i).removeEtat();
+>>>>>>> branch 'master' of https://github.com/Sam97ish/JFSM.git
 			}
 		}
 		
 		
 
-		// A compléter
+		// A compléter (complete the Method delete() in Etat)
 
 		return afn;
 	}
