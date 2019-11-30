@@ -311,7 +311,7 @@ public class JFSM {
       
       System.out.println(afn);
       
-      System.out.println(afn.getEtat("4").isSource(afn)); //expect false got false
+      System.out.println(afn.getEtat("4").isSource(afn)); //
       */
       
       
