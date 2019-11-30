@@ -348,10 +348,11 @@ public class JFSM {
       
 
       //testing transpose
+      /*
       System.out.println(afn);
       System.out.println("Making the transpose of the automate");
       System.out.println(afn.transpose());
-
+		*/
       //testing estComplet
       System.out.println(afnComplet.estComplet()); //should be true
       System.out.println(afn.estComplet());// should be false

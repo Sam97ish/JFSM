@@ -772,8 +772,38 @@ public class Automate implements Cloneable {
 	* @return booléen
 	*/
 	public boolean estComplet() {
-		System.out.println("estComplet() : méthode non implémentée");
-		return true;
+
+		boolean ok = true;
+		//Getting a Collection of values from Map 
+		Collection<Etat> values = this.Q.values();
+		
+		//Creating an ArrayList of values 
+		ArrayList<Etat> l_etat = new ArrayList<Etat>(values);
+		
+		//list of transitions
+		ArrayList<Transition> trans = new ArrayList<Transition>();
+		trans.addAll(mu);
+		
+		int i = 0;
+		while(i < l_etat.size() && ok) {
+			Set<String> langCandidate =  new HashSet<String>();
+			Etat state = l_etat.get(i);
+			//going through all the transitions to check what symbols a state consumes
+			for(int j = 0; j < trans.size(); j++) {
+				Transition t = trans.get(j);
+				if(t.source.equals(state.name)) {
+					langCandidate.add(trans.get(j).symbol);
+				}
+			}
+			if (!(langCandidate.equals(this.A))) {
+				ok =  false;
+			}
+			i += 1;
+		}
+		//here
+		
+		return ok;
+
 	}
 
 	/** 
