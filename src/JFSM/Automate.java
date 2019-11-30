@@ -772,7 +772,11 @@ public class Automate implements Cloneable {
 	* @return booléen
 	*/
 	public boolean estComplet() {
+<<<<<<< HEAD
 
+=======
+		System.out.println("estComplet() : méthode non implémenté")
+>>>>>>> branch 'Abrahim' of https://github.com/Sam97ish/JFSM.git
 		boolean ok = true;
 		//Getting a Collection of values from Map 
 		Collection<Etat> values = this.Q.values();
