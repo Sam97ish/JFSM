@@ -298,7 +298,16 @@ public class JFSM {
       
       
       //testing estnormalise
+      /*
       System.out.println(afn.estNormalise());  //expect false got false
       System.out.println(afn4.estNormalise()); //expect true got true
+      */
+      //testing normalise 
+      System.out.println(afn);
+      System.out.println(afn.estNormalise());  //expect false got false
+      System.out.println("making the automate normalise");
+      afn.normaliser();
+      System.out.println(afn.estNormalise());  //expect true got true
+      System.out.println(afn);
    }
 }

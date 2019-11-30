@@ -462,7 +462,7 @@ public class Automate implements Cloneable {
 	* @return un automate équivalent standard
 	*/
 	public Automate standardiser() {
-		System.out.println("standardiser() : méthode non implémentée");
+		
 		Automate afn = (Automate) this.clone();
 		
 		if (!(afn.estStandard())) {
@@ -552,7 +552,7 @@ public class Automate implements Cloneable {
 	* @return booléen
 	*/
 	public boolean estStandard() {
-		System.out.println("estStandard() : implémentée");
+		
 		boolean ok = true;
 		
 		//case where there is more than one initial state
@@ -585,11 +585,40 @@ public class Automate implements Cloneable {
 	* @return un automate équivalent normalisé
 	*/
 	public Automate normaliser() {
-		System.out.println("normaliser() : méthode non implémentée");
+		
 		Automate afn = (Automate) this.clone();
-
-		// A compléter
-
+		// making the automate standard
+		afn.standardiser();
+		
+		//creating a new  state
+		Etat finale = new Etat("finale");
+		this.addEtat(finale);
+		
+		// changing every cible of each transition from the old final states to the new state
+		// making an ArrayList of all the transition
+		ArrayList<Transition> l_t = new ArrayList<Transition>();
+		l_t.addAll(this.mu);
+		
+		for(int i = 0 ; i < l_t.size() ; i++) {
+			if(this.F.contains(l_t.get(i).cible)) {
+				l_t.get(i).changeCible(finale.toString());
+			}
+		}
+		
+		//making a temporary set of transition
+		Set<Transition> temp = new HashSet<Transition>(l_t);
+		
+		//Updating mu with the new values from temp
+		this.mu = temp;
+		
+		//Deleting the old final states 
+		this.F.clear();
+		try {
+			this.setFinal(finale);
+		} catch (JFSMException e) {
+			System.out.println("Can not make the new final state (finale a finale because it's missing) + e");
+		}
+		
 		return afn;
 	}
 
@@ -598,13 +627,15 @@ public class Automate implements Cloneable {
 	* @return booléen
 	*/
 	public boolean estNormalise() {
-		System.out.println("estNormalise() : méthode non implémentée");
+		
 		if(this.estStandard()) {
 			if(this.F.size() == 1) {
 				//making an ArrayList of the set F
 				ArrayList<String> l_finale = new ArrayList<String>();
 				l_finale.addAll(this.F);
+				
 				if(!(this.getEtat(l_finale.get(0)).isSource(this))) {
+					System.out.println("This automate is normalise");
 					return true;
 				}else {
 					System.out.println("the automate is not normalise because the finale state is a source of a transition");
