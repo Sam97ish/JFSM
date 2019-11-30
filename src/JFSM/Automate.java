@@ -452,7 +452,7 @@ public class Automate implements Cloneable {
 					
 				}
 			}
-			
+			System.out.println(l_etatprec);
 			return l_etatprec.contains(name);
 		}
 	}
@@ -732,8 +732,39 @@ public class Automate implements Cloneable {
 	* @return l'automate complet
 	*/
 	public Automate complet() {
-		System.out.println("complet() : méthode non implémentée");
+		if(this.estComplet()) {
 		return this;
+		}else {
+			// adding new state
+			Etat comp = new Etat("comp");
+			this.addEtat(comp);
+			
+			ArrayList<Etat> l_etat = new ArrayList<Etat>(this.Q.values()); //making an ArrayList of all the  states
+			
+			//making an ArrayList of all the transitions
+			ArrayList<Transition> l_t = new ArrayList<Transition>();
+			l_t.addAll(this.mu);
+			
+			
+			
+			for(int i=0; i < l_etat.size() ; i++) {
+				for(int h=0; h < l_t.size(); h++) {
+					//creating an ArrayList of the symbol used by a state
+					ArrayList<String> l_s = new ArrayList<String>();
+					if(l_t.get(h).source.equals(l_etat.get(i).toString())) {
+						
+					}
+					
+					
+				}
+				
+			}
+			
+		
+			
+			return this;
+		}
+		
 	}
 
 	/** 
@@ -741,7 +772,7 @@ public class Automate implements Cloneable {
 	* @return booléen
 	*/
 	public boolean estComplet() {
-		System.out.println("estComplet() : méthode non implémentée");
+		System.out.println("estComplet() : méthode non implémenté")
 		boolean ok = true;
 		//Getting a Collection of values from Map 
 		Collection<Etat> values = this.Q.values();
@@ -772,6 +803,7 @@ public class Automate implements Cloneable {
 		
 		
 		return ok;
+
 	}
 
 	/** 
