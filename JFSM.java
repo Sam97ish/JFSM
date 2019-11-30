@@ -161,6 +161,34 @@ public class JFSM {
       l5.add("BU");l5.add("GA");l5.add("ZO");l5.add("MEU");
       
       
+      //---------------------------------------------------------------------------
+      //adding new automate afn4 
+      
+      Set<String> A4 = new HashSet<String>();      
+      A4.add("a");A4.add("b");A4.add("c");
+
+      Set<Etat> Q4 = new HashSet<Etat>();
+      Q4.add(new Etat("1"));Q4.add(new Etat("2"));
+      Q4.add(new Etat("3"));Q4.add(new Etat("4"));Q4.add(new Etat("5"));
+
+      Set<Transition> mu4 = new HashSet<Transition>();
+      mu4.add(new Transition("1","a","2"));
+      mu4.add(new Transition("1","b","4"));
+      mu4.add(new Transition("2","b","3"));
+      mu4.add(new Transition("2","c","4"));
+      mu4.add(new Transition("3","a","2"));
+      mu4.add(new Transition("3","b","4"));
+      mu4.add(new Transition("4","a","5"));
+      
+
+
+      Set<String> F4 = new HashSet<String>();
+      F4.add("5");
+      
+      Automate afn4 = new AFD(A4, Q4, "1", F4, mu4);
+
+      
+      
       //affichage
       
       //test de afn (estStandard)
@@ -256,6 +284,7 @@ public class JFSM {
       
       
       //testing isCible
+      /*
       System.out.println(afn);
       System.out.println(afn.getEtat("3").isCible(afn)); //expect true  got true
       
@@ -265,5 +294,11 @@ public class JFSM {
       System.out.println(afn);
       
       System.out.println(afn.getEtat("3").isCible(afn)); // expect false got false
+      */
+      
+      
+      //testing estnormalise
+      System.out.println(afn.estNormalise());  //expect false got false
+      System.out.println(afn4.estNormalise()); //expect true got true
    }
 }

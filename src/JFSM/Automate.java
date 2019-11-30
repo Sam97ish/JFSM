@@ -47,6 +47,7 @@ import java.util.Collection;
 import java.util.Queue;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.HashMap;
 
 import java.util.Iterator;
@@ -598,11 +599,27 @@ public class Automate implements Cloneable {
 	*/
 	public boolean estNormalise() {
 		System.out.println("estNormalise() : méthode non implémentée");
-		boolean ok = false;
-
-		// A compléter
-		
-		return ok;
+		if(this.estStandard()) {
+			if(this.F.size() == 1) {
+				//making an ArrayList of the set F
+				ArrayList<String> l_finale = new ArrayList<String>();
+				l_finale.addAll(this.F);
+				if(!(this.getEtat(l_finale.get(0)).isSource(this))) {
+					return true;
+				}else {
+					System.out.println("the automate is not normalise because the finale state is a source of a transition");
+					return false;
+				}
+				
+			}else {
+				System.out.println("the automate is not normalise because it has more then one state finale");
+				return false;
+			}
+			
+		}else {
+			System.out.println("the automate is not normalise because it's not standard");
+			return false;
+		}
 	}
 
 	/** 
