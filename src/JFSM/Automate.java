@@ -745,18 +745,32 @@ public class Automate implements Cloneable {
 			ArrayList<Transition> l_t = new ArrayList<Transition>();
 			l_t.addAll(this.mu);
 			
+			//making an ArrayList of all the transitions
+			ArrayList<String> l_alpha = new ArrayList<String>();
+			l_alpha.addAll(this.A);
 			
+			//creating an ArrayList of the symbol used by a state
+			ArrayList<String> l_s = new ArrayList<String>();
 			
 			for(int i=0; i < l_etat.size() ; i++) {
+				
 				for(int h=0; h < l_t.size(); h++) {
-					//creating an ArrayList of the symbol used by a state
-					ArrayList<String> l_s = new ArrayList<String>();
+					//filling l_s
 					if(l_t.get(h).source.equals(l_etat.get(i).toString())) {
+						l_s.add(l_t.get(h).symbol);
 						
-					}
-					
-					
+					}	
 				}
+				for(int alpha = 0 ; alpha < l_alpha.size() ; alpha++) {  //adding the missing transition whit the cible "comp"
+					if(!(l_s.contains(l_alpha.get(alpha)))) {            
+						try {
+							this.addTransition(new Transition(l_etat.get(i).toString() , l_alpha.get(alpha) , "comp"));
+						} catch (JFSMException e) {
+							System.out.println("Can not make the new transition + e");
+						}
+					}
+				}
+				
 				
 			}
 			
@@ -772,11 +786,7 @@ public class Automate implements Cloneable {
 	* @return booléen
 	*/
 	public boolean estComplet() {
-<<<<<<< HEAD
 
-=======
-		System.out.println("estComplet() : méthode non implémenté")
->>>>>>> branch 'Abrahim' of https://github.com/Sam97ish/JFSM.git
 		boolean ok = true;
 		//Getting a Collection of values from Map 
 		Collection<Etat> values = this.Q.values();
