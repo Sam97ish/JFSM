@@ -242,16 +242,28 @@ public class JFSM {
       */
       
       //testing isSource
+      /*
       System.out.println(afn);
-      System.out.println(afn.getEtat("4").isSource(afn)); //expect true
+      System.out.println(afn.getEtat("4").isSource(afn)); //expect true  got true
       
-      System.out.println("removing state");
+      System.out.println("removing state 5");
       afn.getEtat("5").removeEtat(afn);
       
       System.out.println(afn);
       
-      System.out.println(afn.getEtat("4").isSource(afn));
+      System.out.println(afn.getEtat("4").isSource(afn)); //expect false got false
+      */
       
       
+      //testing isCible
+      System.out.println(afn);
+      System.out.println(afn.getEtat("3").isCible(afn)); //expect true  got true
+      
+      System.out.println("removing state 2");
+      afn.getEtat("2").removeEtat(afn);
+      
+      System.out.println(afn);
+      
+      System.out.println(afn.getEtat("3").isCible(afn)); // expect false got false
    }
 }
