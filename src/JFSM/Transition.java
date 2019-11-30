@@ -87,6 +87,13 @@ public class Transition implements Cloneable {
 	public void changeSource(String s) {
 		this.source = s;
 	}
+	/**
+	 * changing the cible state of a transition
+	 * @param s the name of new cible state
+	 */
+	public void changeCible(String s) {
+		this.cible = s;
+	}
 
 	/** 
 	* Indique si la transition peut être appliquée depuis cet état sur ce symbole.  

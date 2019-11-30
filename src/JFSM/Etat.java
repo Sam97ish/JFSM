@@ -103,8 +103,49 @@ public class Etat  implements Cloneable {
 		if(afn.F.contains(this.toString())) { afn.F.remove(this.toString());}
 		if(afn.I.contains(this.toString())) { afn.I.remove(this.toString());}
 
-		//TODO
-		System.out.println("estUtile() : méthode non implémentée");
+		
+	}
+	
+	/**
+	 * Method to check whether this state is the source of any transition
+	 * @param afn the automate of the state
+	 * @return true if the state is a source or not if it's isn't
+	 */
+	public boolean isSource(Automate afn) {
+		boolean ok = false;
+		//making an ArrayList of all the transitions
+		ArrayList<Transition> l_trans = new ArrayList<Transition>();
+		l_trans.addAll(afn.mu);
+		
+		int i =0;
+		while(i < l_trans.size() && !ok) {
+			if(l_trans.get(i).source.equals(this.toString())) {
+				ok = true;
+			}
+			i++;
+		}
+		return ok;
+	}
+	
+	/**
+	 * Method  to check whether this state is the cible of any transition 
+	 * @param afn  the automate of the state
+	 * @return   true if the state is a cible or not if it's isn't
+	 */
+	public boolean isCible(Automate afn) {
+		boolean ok = false;
+		//making an ArrayList of all the transitions
+		ArrayList<Transition> l_trans = new ArrayList<Transition>();
+		l_trans.addAll(afn.mu);
+		
+		int i =0;
+		while(i < l_trans.size() && !ok) {
+			if(l_trans.get(i).cible.equals(this.toString())) {
+				ok = true;
+			}
+			i++;
+		}
+		return ok;
 	}
 }
 
