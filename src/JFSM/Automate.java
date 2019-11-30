@@ -772,7 +772,7 @@ public class Automate implements Cloneable {
 	* @return booléen
 	*/
 	public boolean estComplet() {
-		System.out.println("estComplet() : méthode non implémenté")
+		System.out.println("estComplet() : méthode non implémenté");
 		boolean ok = true;
 		//Getting a Collection of values from Map 
 		Collection<Etat> values = this.Q.values();
