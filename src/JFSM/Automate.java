@@ -702,6 +702,28 @@ public class Automate implements Cloneable {
 	*/
 	public Automate complementaire() {
 		System.out.println("complémentaire() : méthode non implémentée");
+		//making the automate complet
+		this.complet();
+		
+		//the final states become normal and making every state that is not originally final into a final state
+		ArrayList<String> l_finale = new ArrayList<String>(); //making an ArrayList of the set F
+		l_finale.addAll(this.F);
+		
+		this.F.clear();  //Emptying the set F
+		
+		ArrayList<Etat> l_etat = new ArrayList<Etat>(this.Q.values()); //making an ArrayList of all the  states
+		
+		for(int i=0 ; i < l_etat.size() ; i++) {
+			if(l_finale.contains(l_etat.get(i).toString())) {
+				try {
+					this.setFinal(l_etat.get(i));
+				} catch (JFSMException e) {
+					System.out.println("Can not make the new final state (finale a finale because it's missing) + e");
+				}
+			}
+		}
+		
+		
 		return this;
 	}
 
