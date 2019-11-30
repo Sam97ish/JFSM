@@ -187,6 +187,37 @@ public class JFSM {
       
       Automate afn4 = new AFD(A4, Q4, "1", F4, mu4);
 
+      //new complete automate ------------------------------------------------------------
+      Set<String> A5 = new HashSet<String>();      
+      A5.add("a");A5.add("b");A5.add("c");
+
+      Set<Etat> Q5 = new HashSet<Etat>();
+      Q5.add(new Etat("1"));Q5.add(new Etat("2"));
+      Q5.add(new Etat("3"));Q5.add(new Etat("4"));Q5.add(new Etat("5"));
+
+      Set<Transition> mu5 = new HashSet<Transition>();
+      mu5.add(new Transition("1","a","2"));
+      mu5.add(new Transition("1","b","4"));
+      mu5.add(new Transition("1","c","4"));
+      mu5.add(new Transition("2","a","3"));
+      mu5.add(new Transition("2","b","3"));
+      mu5.add(new Transition("2","c","4"));
+      mu5.add(new Transition("3","a","2"));
+      mu5.add(new Transition("3","b","4"));
+      mu5.add(new Transition("3","c","4"));
+      mu5.add(new Transition("4","a","5"));
+      mu5.add(new Transition("4","b","4"));
+      mu5.add(new Transition("4","c","4"));
+      mu5.add(new Transition("5","a","5"));
+      mu5.add(new Transition("5","b","5"));
+      mu5.add(new Transition("5","c","5"));
+
+
+      Set<String> F5 = new HashSet<String>();
+      F5.add("5");
+      F5.add("4");
+      F5.add("1");
+      Automate afnComplet = new AFD(A5, Q5, "1", F5, mu5);
       
       
       //affichage
@@ -210,13 +241,13 @@ public class JFSM {
       */
 
       
-      //FIXME : the methode isAccessible for the state 3 should return true but is returing false.
+     
      /* 
       //test isAccessible avec afn and the state 4
       System.out.println("test isAccessible avec afn and the state 3");
       //state 3,5 are missing from the list
       System.out.println(afn.isAccessible("3"));
-      */
+     
       
       //state 7 and 5 are missing from the list
       System.out.println(afn3.isAccessible("5"));
@@ -225,6 +256,7 @@ public class JFSM {
       //test isCoaccessible avec afn and the state 4
       System.out.println("test isCoaccessible avec afn and the state 3");
       System.out.println(afn.isCoaccessible("3"));
+      */
       
       /*
       //test estUtile (automate) avec afn and the state 4
@@ -302,12 +334,19 @@ public class JFSM {
       System.out.println(afn.estNormalise());  //expect false got false
       System.out.println(afn4.estNormalise()); //expect true got true
       */
+      /*
       //testing normalise 
       System.out.println(afn);
       System.out.println(afn.estNormalise());  //expect false got false
-      System.out.println("making the automate normalise");
+      System.out.println("normalising the automate");
       afn.normaliser();
       System.out.println(afn.estNormalise());  //expect true got true
       System.out.println(afn);
+      */
+      
+      //testing estComplet
+      System.out.println(afnComplet.estComplet()); //should be true
+      System.out.println(afn.estComplet());// should be false
+      
    }
 }
