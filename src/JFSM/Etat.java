@@ -105,5 +105,26 @@ public class Etat  implements Cloneable {
 
 		
 	}
+	
+	/**
+	 * Method to check whether this state is the source of any transition
+	 * @param afn the automate of the state
+	 * @return true if the state is a source or not if it's isn't
+	 */
+	public boolean isSource(Automate afn) {
+		boolean ok = false;
+		//making an ArrayList of all the transitions
+		ArrayList<Transition> l_trans = new ArrayList<Transition>();
+		l_trans.addAll(afn.mu);
+		
+		int i =0;
+		while(i < l_trans.size() && !ok) {
+			if(l_trans.get(i).source.equals(this.toString())) {
+				ok = true;
+			}
+			i++;
+		}
+		return ok;
+	}
 }
 

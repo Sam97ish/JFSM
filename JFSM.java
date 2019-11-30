@@ -228,6 +228,7 @@ public class JFSM {
       */
       
       //testing emonder
+     /*
       System.out.println(afn3);
       System.out.println(afn3.estUtile()); //expected true
       
@@ -238,6 +239,19 @@ public class JFSM {
       
       afn3.emonder();
       System.out.println(afn3.estUtile()); //expected true
+      */
+      
+      //testing isSource
+      System.out.println(afn);
+      System.out.println(afn.getEtat("4").isSource(afn)); //expect true
+      
+      System.out.println("removing state");
+      afn.getEtat("5").removeEtat(afn);
+      
+      System.out.println(afn);
+      
+      System.out.println(afn.getEtat("4").isSource(afn));
+      
       
    }
 }
