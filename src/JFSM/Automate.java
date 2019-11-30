@@ -729,7 +729,50 @@ public class Automate implements Cloneable {
 	*/
 	public Automate transpose() {
 		System.out.println("transpose() : méthode non implémentée");
-		return this;
+		Automate afn = (Automate) this.clone();
+		
+		//Swapping the source and the cible of each transition
+		ArrayList<Transition> l_t = new ArrayList<Transition>(); //making an ArrayList of all the transitions
+		l_t.addAll(afn.mu);
+		
+		for(int i = 0 ; i < l_t.size() ; i++) {
+			String tempEtat = l_t.get(i).source;
+			l_t.get(i).changeSource(l_t.get(i).cible);
+			l_t.get(i).changeCible(tempEtat);
+		}
+		
+		//making a temporary set of transition
+		Set<Transition> temp = new HashSet<Transition>(l_t);
+				
+		//Updating this.mu with the new values from temp
+		afn.mu = temp;
+		
+		//the final states become initial states
+		afn.I.clear(); //Clearing the initial states
+		ArrayList<String> l_etatF = new ArrayList<String>(); //making an ArrayList of all the final states
+		l_etatF.addAll(afn.F);
+		for(int i = 0 ; i < l_etatF.size() ; i++) {
+			try {
+				afn.setInitial(l_etatF.get(i));
+			} catch (JFSMException e) {
+				System.out.println("Can not make the new final state (finale a finale because it's missing) + e");
+			}
+		}
+		
+		//Making every state that isn't an initial state a final state
+		afn.F.clear();
+		ArrayList<Etat> l_etat = new ArrayList<Etat>(this.Q.values()); //making an ArrayList of all the  states
+		
+		for(int i=0 ; i < l_etat.size() ; i++) {
+			if(!(afn.I.contains(l_etat.get(i).toString()))) {
+				try {
+					afn.setFinal(l_etat.get(i));
+				} catch (JFSMException e) {
+					System.out.println("Can not make the new final state (finale a finale because it's missing) + e");
+				}
+			}
+		}
+		return afn;
 	}
 
 	/** 
