@@ -220,15 +220,24 @@ public class JFSM {
        */
       
     //testing the removeEtat and isAccessible
-      System.out.println(afn);
+     /* System.out.println(afn);
       afn.getEtat("4").removeEtat(afn);
       System.out.println(afn);
       
       System.out.println(afn.isAccessible("5")); // expected false because we deleted state 4 got false
-
+      */
       
+      //testing emonder
+      System.out.println(afn3);
+      System.out.println(afn3.estUtile()); //expected true
       
+      System.out.println("removing state");
+      afn3.getEtat("5").removeEtat(afn3);
+      afn3.getEtat("6").removeEtat(afn3);
+      System.out.println(afn3.estUtile()); //expected false
       
-
+      afn3.emonder();
+      System.out.println(afn3.estUtile()); //expected true
+      
    }
 }

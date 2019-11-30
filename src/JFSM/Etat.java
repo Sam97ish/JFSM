@@ -103,8 +103,7 @@ public class Etat  implements Cloneable {
 		if(afn.F.contains(this.toString())) { afn.F.remove(this.toString());}
 		if(afn.I.contains(this.toString())) { afn.I.remove(this.toString());}
 
-		//TODO
-		System.out.println("estUtile() : méthode non implémentée");
+		
 	}
 }
 

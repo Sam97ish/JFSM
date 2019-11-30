@@ -301,7 +301,7 @@ public class Automate implements Cloneable {
 	* @return un automate équivalent utile (tous les états sont utiles)
 	*/
 	public Automate emonder() {
-		System.out.println("emonder() : méthode non implémentée");
+		
 		Automate afn = (Automate) this.clone();
 		
 		/*ArrayList<String> l_etat = new ArrayList<String>();
@@ -313,7 +313,7 @@ public class Automate implements Cloneable {
 		//Creating an ArrayList of values 
 		ArrayList<Etat> l_etat = new ArrayList<Etat>(values);
 		
-		for(int i=0 ; i <= l_etat.size(); i++) {
+		for(int i=0 ; i < l_etat.size(); i++) {
 
 			if(!(l_etat.get(i).estUtile(this))){
 				l_etat.get(i).removeEtat(this);
@@ -351,7 +351,7 @@ public class Automate implements Cloneable {
 			ok = l_etat.get(i).estUtile(this);
 			i += 1;
 		}
-		
+		System.out.println("the automate is utile : ");
 		return ok;
 	}
 	
@@ -411,7 +411,7 @@ public class Automate implements Cloneable {
 		}
 
 		}
-	}
+	
 	
 	/**
 	 * a method that checks if a given state is CoAccessible by giving it it's name .
