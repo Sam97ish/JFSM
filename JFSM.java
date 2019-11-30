@@ -334,8 +334,10 @@ public class JFSM {
       System.out.println(afn.estNormalise());  //expect false got false
       System.out.println(afn4.estNormalise()); //expect true got true
       */
+
       /*
       //testing normalise 
+
       System.out.println(afn);
       System.out.println(afn.estNormalise());  //expect false got false
       System.out.println("normalising the automate");
@@ -344,9 +346,16 @@ public class JFSM {
       System.out.println(afn);
       */
       
+
+      //testing transpose
+      System.out.println(afn);
+      System.out.println("Making the transpose of the automate");
+      System.out.println(afn.transpose());
+
       //testing estComplet
       System.out.println(afnComplet.estComplet()); //should be true
       System.out.println(afn.estComplet());// should be false
+
       
    }
 }
