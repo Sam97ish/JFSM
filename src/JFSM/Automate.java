@@ -769,6 +769,7 @@ public class Automate implements Cloneable {
 			}
 			i += 1;
 		}
+		//here
 		
 		return ok;
 	}
