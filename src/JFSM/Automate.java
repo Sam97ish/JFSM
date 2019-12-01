@@ -789,7 +789,7 @@ public class Automate implements Cloneable {
 			Set<String> langCandidate =  new HashSet<String>();
 			Etat state = l_etat.get(i);
 			//going through all the transitions to check what symbols a state consumes
-			for(int j = 0; j < trans.size(); i++) {
+			for(int j = 0; j < trans.size(); j++) {
 				Transition t = trans.get(j);
 				if(t.source.equals(state.name)) {
 					langCandidate.add(trans.get(j).symbol);
