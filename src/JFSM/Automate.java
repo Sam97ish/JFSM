@@ -656,7 +656,6 @@ public class Automate implements Cloneable {
 		//TO FIX
 		System.out.println("produit() : méthode non implémentée");
 		//making a clone of (a)
-		Automate a_org = (Automate) a.clone();
 		
 		//Making (a) standard
 		 a = a.standardiser(); 
