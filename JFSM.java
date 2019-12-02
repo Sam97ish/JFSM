@@ -354,8 +354,13 @@ public class JFSM {
       System.out.println(afn.transpose());
 		*/
       //testing estComplet
-      System.out.println(afnComplet.estComplet()); //should be true
+      /*System.out.println(afnComplet.estComplet()); //should be true
       System.out.println(afn.estComplet());// should be false
+      */
+      //testing complet
+      System.out.println(afn.estComplet());// should be false
+      System.out.println("making the automate compllet");
+      System.out.println(afn.complet());
 
       
    }

@@ -732,6 +732,7 @@ public class Automate implements Cloneable {
 	* @return l'automate complet
 	*/
 	public Automate complet() {
+		
 		if(this.estComplet()) {
 		return this;
 		}else {
@@ -745,7 +746,7 @@ public class Automate implements Cloneable {
 			ArrayList<Transition> l_t = new ArrayList<Transition>();
 			l_t.addAll(this.mu);
 			
-			//making an ArrayList of all the transitions
+			//making an ArrayList of all the alphabetic 
 			ArrayList<String> l_alpha = new ArrayList<String>();
 			l_alpha.addAll(this.A);
 			
@@ -770,6 +771,8 @@ public class Automate implements Cloneable {
 						}
 					}
 				}
+				
+				l_s.clear();  //clearing the list of symbols
 				
 				
 			}
