@@ -848,7 +848,6 @@ public class Automate implements Cloneable {
 	* @return booléen
 	*/
 	public boolean estComplet() {
-
 		boolean ok = true;
 		//Getting a Collection of values from Map 
 		Collection<Etat> values = this.Q.values();
@@ -876,7 +875,7 @@ public class Automate implements Cloneable {
 			}
 			i += 1;
 		}
-		//here
+		
 		
 		return ok;
 
