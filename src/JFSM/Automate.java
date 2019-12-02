@@ -653,6 +653,7 @@ public class Automate implements Cloneable {
 	* @return un automate reconnaissant le produit
 	*/
 	public Automate produit(Automate a) {
+		//TO FIX
 		System.out.println("produit() : méthode non implémentée");
 		//making a clone of (a)
 		Automate a_org = (Automate) a.clone();
@@ -660,35 +661,51 @@ public class Automate implements Cloneable {
 		//Making (a) standard
 		 a = a.standardiser(); 
 		 
-		//Making the union of the two automate
-		
-		a.A.addAll(this.A); //Union of l'alphabet
-		
-		ArrayList<Etat> l_etatA = new ArrayList<Etat>(a.Q.values()); //making an ArrayList of the all states of (a)
+	
+		ArrayList<Etat> l_etat2 = new ArrayList<Etat>(a.Q.values()); //making an ArrayList of the all states of (a)
 		
 		//Changing the names of the states of (a)
 		
-		for(int e =0 ; e < l_etatA.size() ; e++) {
+		for(int e =0 ; e < l_etat2.size() ; e++) {
 			int nextetat = this.Q.size() + e +1 ;
 			String name = Integer.toString(nextetat);
-			l_etatA.get(e).rename(name);
+			l_etat2.get(e).rename(name, a);
 		}
 		
-		a.Q.putAll((Map<? extends String, ? extends Etat>) l_etatA);
+		 System.out.println(a.Q);
+		
+		
+		//Making the union of the two automate
+		
+		a.A.addAll(this.A); //Union of the alphabet
+		
+		
+		
+		a.Q.putAll(this.Q);  //Union of the states
 		
 		//the final state of the produit is the final state of (a)
 		
-		a.
+		//giving the transition of the initial state the final states of the first automate
 		
+		ArrayList<String> l_initial2 = new ArrayList<String>(a.I); //making an ArrayList of the all the initial states of (a)
+		ArrayList<String> l_final1 = new ArrayList<String>(this.F); //making an ArrayList of the all final states of (this)
+		ArrayList<Transition> l_t2 = new ArrayList<Transition>(a.mu); //making an ArrayList of the all transition of (a)
 		
+		for(int t=0 ; t < l_t2.size() ; t++) {
+			if(l_initial2.get(0).contains(l_t2.get(t).source)) {
+				for(int f =0 ; f < l_final1.size() ; f++) {
+					try {
+						a.addTransition(new Transition(l_final1.get(f).toString(), l_t2.get(t).symbol , l_t2.get(t).cible));
+					} catch (JFSMException e) {
+						System.out.println("can't add the new transition" + e);
+					}
+				}
+			}
+		}
 		
+		a.mu.addAll(this.mu);
 		
-		
-		
-		
-		
-		
-		
+		a.getEtat(l_initial2.get(0)).removeEtat(a);
 		
 		
 		return a;

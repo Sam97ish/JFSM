@@ -61,6 +61,7 @@ public class Etat  implements Cloneable {
 	 * @param afn the automate of the state
 	 */
 	public void rename(String newName ,Automate afn) {
+		//does not change the key of the map
 		
 		//making an ArrayList of all the transitions
 		ArrayList<Transition> l_t = new ArrayList<Transition>();

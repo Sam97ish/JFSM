@@ -244,6 +244,9 @@ public class JFSM {
       F6.add("5");
       
       Automate afn6 = new AFD(A6, Q6, "1", F6, mu6);
+      
+      
+      
 
       
       
@@ -411,5 +414,10 @@ public class JFSM {
       afn6.getEtat("1").rename("88", afn6);
       System.out.println(afn6);
 		*/
+      
+      //testing produit
+      System.out.println(afn);
+      System.out.println(afn6);
+      System.out.println(afn.produit(afn6));
    }
 }
