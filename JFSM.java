@@ -358,9 +358,19 @@ public class JFSM {
       System.out.println(afn.estComplet());// should be false
       */
       //testing complet
-      System.out.println(afn.estComplet());// should be false
+      /*
+      System.out.println(afn.estComplet());// should be false got false
       System.out.println("making the automate compllet");
       System.out.println(afn.complet());
+      System.out.println(afn.estComplet());  // should be true got true
+      */
+      //testing complementaire
+      System.out.println(afn);
+      
+      System.out.println("Making the complementaire of the automate");
+
+      System.out.println(afn.complementaire());
+
 
       
    }

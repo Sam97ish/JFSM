@@ -714,7 +714,7 @@ public class Automate implements Cloneable {
 		ArrayList<Etat> l_etat = new ArrayList<Etat>(this.Q.values()); //making an ArrayList of all the  states
 		
 		for(int i=0 ; i < l_etat.size() ; i++) {
-			if(l_finale.contains(l_etat.get(i).toString())) {
+			if(!(l_finale.contains(l_etat.get(i).toString()))) {
 				try {
 					this.setFinal(l_etat.get(i));
 				} catch (JFSMException e) {
