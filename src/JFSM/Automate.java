@@ -470,8 +470,7 @@ public class Automate implements Cloneable {
 			//adding the new initial state
 			afn.addEtat(new Etat("initial"));
 			
-			//ArrayList<String> l_inital = new ArrayList<String>();
-			//l_inital.addAll(afn.I);
+			
 			
 			ArrayList<Transition> l_t = new ArrayList<Transition>();
 			l_t.addAll(afn.mu);
@@ -538,7 +537,6 @@ public class Automate implements Cloneable {
 		
 		
 		}
-		// A compléter
 		return afn;
 	}
 		
@@ -670,9 +668,36 @@ public class Automate implements Cloneable {
 	public Automate etoile() {
 		System.out.println("etoile() : méthode non implémentée");
 		Automate afn = (Automate) this.clone();
-
-		// A compléter
-
+		
+		//making the automate standard
+		afn = afn.standardiser();
+		
+		//Copying the transition of the initial state to the final state
+		
+		ArrayList<String> l_initial = new ArrayList<String>(afn.I); //making an ArrayList of the initial state
+		ArrayList<Transition> l_t = new ArrayList<Transition>(afn.mu); //making an ArrayList of all the transition
+		ArrayList<String> l_final = new ArrayList<String>(afn.F); //making an ArrayList of the initial state
+		
+		for(int t=0 ; t < l_t.size() ; t++) {
+			if(l_initial.contains(l_t.get(t).source)) {
+				for(int f=0 ; f < l_final.size() ; f++) {
+					try {
+						Transition temp = new Transition(l_final.get(f),l_t.get(t).symbol,l_t.get(t).cible);
+						afn.addTransition(temp);
+					} catch (JFSMException e) {
+						System.out.println("Can't make the new transition" + e);
+					}
+				}
+				
+			}
+		}
+		
+		//Making the initial state into a final state
+		try {
+			afn.setFinal(l_initial.get(0));
+		} catch (JFSMException e) {
+			System.out.println("Can't make the initial state to a final state" + e);
+		}
 		return afn;
 	}
 

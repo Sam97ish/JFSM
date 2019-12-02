@@ -219,6 +219,33 @@ public class JFSM {
       F5.add("1");
       Automate afnComplet = new AFD(A5, Q5, "1", F5, mu5);
       
+      //---------------------------------------------------------------------------
+      //adding new automate afn6 
+      
+      Set<String> A6 = new HashSet<String>();      
+      A6.add("a");A6.add("b");A6.add("c");
+
+      Set<Etat> Q6 = new HashSet<Etat>();
+      Q6.add(new Etat("1"));Q6.add(new Etat("2"));
+      Q6.add(new Etat("3"));Q6.add(new Etat("4"));Q6.add(new Etat("5"));
+
+      Set<Transition> mu6 = new HashSet<Transition>();
+      mu6.add(new Transition("1","a","2"));
+      mu6.add(new Transition("1","b","4"));
+      mu6.add(new Transition("2","b","3"));
+      mu6.add(new Transition("2","c","4"));
+      mu6.add(new Transition("3","a","2"));
+      mu6.add(new Transition("3","b","4"));
+      mu6.add(new Transition("4","a","5"));
+      
+
+
+      Set<String> F6 = new HashSet<String>();
+      F6.add("5");
+      
+      Automate afn6 = new AFD(A6, Q6, "1", F6, mu6);
+
+      
       
       //affichage
       
@@ -364,12 +391,17 @@ public class JFSM {
       System.out.println(afn.complet());
       System.out.println(afn.estComplet());  // should be true got true
       */
-      //testing complementaire
-      System.out.println(afn);
       
+      //testing complementaire
+      /*
+      System.out.println(afn);
       System.out.println("Making the complementaire of the automate");
-
       System.out.println(afn.complementaire());
+      */
+      //testing etoile 
+      System.out.println(afn6);
+      System.out.println("Making an etoile from the automate");
+      System.out.println(afn6.etoile());
 
 
       
