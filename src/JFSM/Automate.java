@@ -470,8 +470,7 @@ public class Automate implements Cloneable {
 			//adding the new initial state
 			afn.addEtat(new Etat("initial"));
 			
-			//ArrayList<String> l_inital = new ArrayList<String>();
-			//l_inital.addAll(afn.I);
+			
 			
 			ArrayList<Transition> l_t = new ArrayList<Transition>();
 			l_t.addAll(afn.mu);
@@ -538,7 +537,6 @@ public class Automate implements Cloneable {
 		
 		
 		}
-		// A compléter
 		return afn;
 	}
 		
@@ -670,9 +668,36 @@ public class Automate implements Cloneable {
 	public Automate etoile() {
 		System.out.println("etoile() : méthode non implémentée");
 		Automate afn = (Automate) this.clone();
-
-		// A compléter
-
+		
+		//making the automate standard
+		afn = afn.standardiser();
+		
+		//Copying the transition of the initial state to the final state
+		
+		ArrayList<String> l_initial = new ArrayList<String>(afn.I); //making an ArrayList of the initial state
+		ArrayList<Transition> l_t = new ArrayList<Transition>(afn.mu); //making an ArrayList of all the transition
+		ArrayList<String> l_final = new ArrayList<String>(afn.F); //making an ArrayList of the initial state
+		
+		for(int t=0 ; t < l_t.size() ; t++) {
+			if(l_initial.contains(l_t.get(t).source)) {
+				for(int f=0 ; f < l_final.size() ; f++) {
+					try {
+						Transition temp = new Transition(l_final.get(f),l_t.get(t).symbol,l_t.get(t).cible);
+						afn.addTransition(temp);
+					} catch (JFSMException e) {
+						System.out.println("Can't make the new transition" + e);
+					}
+				}
+				
+			}
+		}
+		
+		//Making the initial state into a final state
+		try {
+			afn.setFinal(l_initial.get(0));
+		} catch (JFSMException e) {
+			System.out.println("Can't make the initial state to a final state" + e);
+		}
 		return afn;
 	}
 
@@ -714,7 +739,7 @@ public class Automate implements Cloneable {
 		ArrayList<Etat> l_etat = new ArrayList<Etat>(this.Q.values()); //making an ArrayList of all the  states
 		
 		for(int i=0 ; i < l_etat.size() ; i++) {
-			if(l_finale.contains(l_etat.get(i).toString())) {
+			if(!(l_finale.contains(l_etat.get(i).toString()))) {
 				try {
 					this.setFinal(l_etat.get(i));
 				} catch (JFSMException e) {
@@ -732,6 +757,7 @@ public class Automate implements Cloneable {
 	* @return l'automate complet
 	*/
 	public Automate complet() {
+		
 		if(this.estComplet()) {
 		return this;
 		}else {
@@ -745,18 +771,34 @@ public class Automate implements Cloneable {
 			ArrayList<Transition> l_t = new ArrayList<Transition>();
 			l_t.addAll(this.mu);
 			
+			//making an ArrayList of all the alphabetic 
+			ArrayList<String> l_alpha = new ArrayList<String>();
+			l_alpha.addAll(this.A);
 			
+			//creating an ArrayList of the symbol used by a state
+			ArrayList<String> l_s = new ArrayList<String>();
 			
 			for(int i=0; i < l_etat.size() ; i++) {
+				
 				for(int h=0; h < l_t.size(); h++) {
-					//creating an ArrayList of the symbol used by a state
-					ArrayList<String> l_s = new ArrayList<String>();
+					//filling l_s
 					if(l_t.get(h).source.equals(l_etat.get(i).toString())) {
+						l_s.add(l_t.get(h).symbol);
 						
-					}
-					
-					
+					}	
 				}
+				for(int alpha = 0 ; alpha < l_alpha.size() ; alpha++) {  //adding the missing transition whit the cible "comp"
+					if(!(l_s.contains(l_alpha.get(alpha)))) {            
+						try {
+							this.addTransition(new Transition(l_etat.get(i).toString() , l_alpha.get(alpha) , "comp"));
+						} catch (JFSMException e) {
+							System.out.println("Can not make the new transition + e");
+						}
+					}
+				}
+				
+				l_s.clear();  //clearing the list of symbols
+				
 				
 			}
 			
@@ -772,7 +814,6 @@ public class Automate implements Cloneable {
 	* @return booléen
 	*/
 	public boolean estComplet() {
-		System.out.println("estComplet() : méthode non implémenté");
 		boolean ok = true;
 		//Getting a Collection of values from Map 
 		Collection<Etat> values = this.Q.values();
