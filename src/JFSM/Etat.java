@@ -79,6 +79,16 @@ public class Etat  implements Cloneable {
 		afn.mu.clear();
 		afn.mu.addAll(l_t);
 		
+		//if this is a initial state update it's name in I
+		if(afn.I.contains(this.toString())) {
+			afn.I.remove(this.toString());
+			afn.I.add(newName);
+		}
+		//if this is a final state update it's name in F
+		if(afn.F.contains(this.toString())) {
+		afn.F.remove(this.toString());
+		afn.F.add(newName);
+		}
 		this.name = newName ;
 		
 	}

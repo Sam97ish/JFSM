@@ -665,14 +665,17 @@ public class Automate implements Cloneable {
 		ArrayList<Etat> l_etat2 = new ArrayList<Etat>(a.Q.values()); //making an ArrayList of the all states of (a)
 		
 		//Changing the names of the states of (a)
-		
+		a.Q.clear();
 		for(int e =0 ; e < l_etat2.size() ; e++) {
 			int nextetat = this.Q.size() + e +1 ;
 			String name = Integer.toString(nextetat);
 			l_etat2.get(e).rename(name, a);
+			Etat temp = new Etat(name);
+			a.Q.put(name, temp);
 		}
 		
-		 System.out.println(a.Q);
+		System.out.println(a.Q);
+		System.out.println(this.Q);
 		
 		
 		//Making the union of the two automate
@@ -682,6 +685,7 @@ public class Automate implements Cloneable {
 		
 		
 		a.Q.putAll(this.Q);  //Union of the states
+		System.out.println(a.Q);
 		
 		//the final state of the produit is the final state of (a)
 		
@@ -706,6 +710,8 @@ public class Automate implements Cloneable {
 		a.mu.addAll(this.mu);
 		
 		a.getEtat(l_initial2.get(0)).removeEtat(a);
+		
+		a.I = this.I;
 		
 		
 		return a;
