@@ -399,11 +399,16 @@ public class JFSM {
       System.out.println(afn.complementaire());
       */
       //testing etoile 
+      /*
       System.out.println(afn6);
       System.out.println("Making an etoile from the automate");
       System.out.println(afn6.etoile());
-
-
+      */
       
+      //testing rename
+      System.out.println(afn6);
+      afn6.getEtat("1").rename("88", afn6);
+      System.out.println(afn6);
+
    }
 }

@@ -321,10 +321,6 @@ public class Automate implements Cloneable {
 
 			}
 		}
-		
-		
-
-		// A compléter (complete the Method delete() in Etat)
 
 		return afn;
 	}
@@ -658,6 +654,43 @@ public class Automate implements Cloneable {
 	*/
 	public Automate produit(Automate a) {
 		System.out.println("produit() : méthode non implémentée");
+		//making a clone of (a)
+		Automate a_org = (Automate) a.clone();
+		
+		//Making (a) standard
+		 a = a.standardiser(); 
+		 
+		//Making the union of the two automate
+		
+		a.A.addAll(this.A); //Union of l'alphabet
+		
+		ArrayList<Etat> l_etatA = new ArrayList<Etat>(a.Q.values()); //making an ArrayList of the all states of (a)
+		
+		//Changing the names of the states of (a)
+		
+		for(int e =0 ; e < l_etatA.size() ; e++) {
+			int nextetat = this.Q.size() + e +1 ;
+			String name = Integer.toString(nextetat);
+			l_etatA.get(e).rename(name);
+		}
+		
+		a.Q.putAll((Map<? extends String, ? extends Etat>) l_etatA);
+		
+		//the final state of the produit is the final state of (a)
+		
+		a.
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		return a;
 	}
 
@@ -666,7 +699,7 @@ public class Automate implements Cloneable {
 	* @return un automate reconnaissant la mise à l'étoile
 	*/
 	public Automate etoile() {
-		System.out.println("etoile() : méthode non implémentée");
+		
 		Automate afn = (Automate) this.clone();
 		
 		//making the automate standard
@@ -700,6 +733,7 @@ public class Automate implements Cloneable {
 		}
 		return afn;
 	}
+	
 
 	/** 
 	* Construit un automate reconnaissant l'union du langage de l'automate avec celui de "a" : L(this) U L(a)
