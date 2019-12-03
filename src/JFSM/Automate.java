@@ -51,7 +51,7 @@ import java.util.Optional;
 import java.util.HashMap;
 
 import java.util.Iterator;
-
+import java.util.LinkedHashSet;
 import java.util.Stack;
 
 import org.xml.sax.*;
@@ -676,7 +676,7 @@ public class Automate implements Cloneable {
 		
 		ArrayList<String> l_initial = new ArrayList<String>(afn.I); //making an ArrayList of the initial state
 		ArrayList<Transition> l_t = new ArrayList<Transition>(afn.mu); //making an ArrayList of all the transition
-		ArrayList<String> l_final = new ArrayList<String>(afn.F); //making an ArrayList of the initial state
+		ArrayList<String> l_final = new ArrayList<String>(afn.F); //making an ArrayList of the final states
 		
 		for(int t=0 ; t < l_t.size() ; t++) {
 			if(l_initial.contains(l_t.get(t).source)) {
@@ -700,6 +700,34 @@ public class Automate implements Cloneable {
 		}
 		return afn;
 	}
+	
+	/**
+	 * a method that gives back the cible when it is given a symbol and a source. if the cible is composed of several states it will return a string of all states ex: [1, 4, 2].
+	 * @param source str
+	 * @param symbol str
+	 * @return ArrayList<String>
+	 */
+	public ArrayList<String> get_cible(String source, String symbol){
+		ArrayList<String> l_cible = new ArrayList<String>();
+		
+		ArrayList<Transition> l_trans = new ArrayList<Transition>();
+		l_trans.addAll(this.mu);
+		
+		for(int i =0; i < l_trans.size(); i++) {
+			if(l_trans.get(i).source.equals(source) && l_trans.get(i).symbol.equals(symbol)) {
+				l_cible.add(l_trans.get(i).cible);
+			}
+		}
+		
+		if(l_cible.size() > 1) {
+			String A = l_cible.toString();
+			l_cible.clear();
+			l_cible.add(A);
+		}
+		
+		return l_cible;
+		
+	}
 
 	/** 
 	* Construit un automate reconnaissant l'union du langage de l'automate avec celui de "a" : L(this) U L(a)
@@ -718,6 +746,7 @@ public class Automate implements Cloneable {
 	*/
 	public Automate intersection(Automate a) {
 		System.out.println("intersection() : méthode non implémentée");
+		
 		return a;
 	}
 
@@ -743,7 +772,7 @@ public class Automate implements Cloneable {
 				try {
 					this.setFinal(l_etat.get(i));
 				} catch (JFSMException e) {
-					System.out.println("Can not make the new final state (finale a finale because it's missing) + e");
+					System.out.println("Can not make the new final state (finale) because it's missing + e");
 				}
 			}
 		}
@@ -762,8 +791,8 @@ public class Automate implements Cloneable {
 		return this;
 		}else {
 			// adding new state
-			Etat comp = new Etat("comp");
-			this.addEtat(comp);
+			Etat puit = new Etat("puit");
+			this.addEtat(puit);
 			
 			ArrayList<Etat> l_etat = new ArrayList<Etat>(this.Q.values()); //making an ArrayList of all the  states
 			
@@ -790,7 +819,7 @@ public class Automate implements Cloneable {
 				for(int alpha = 0 ; alpha < l_alpha.size() ; alpha++) {  //adding the missing transition whit the cible "comp"
 					if(!(l_s.contains(l_alpha.get(alpha)))) {            
 						try {
-							this.addTransition(new Transition(l_etat.get(i).toString() , l_alpha.get(alpha) , "comp"));
+							this.addTransition(new Transition(l_etat.get(i).toString() , l_alpha.get(alpha) , "puit"));
 						} catch (JFSMException e) {
 							System.out.println("Can not make the new transition + e");
 						}
@@ -1057,6 +1086,22 @@ class JFLAPHandler extends DefaultHandler {
 			read = cdc;
 		}
 	}
+	
+    /**
+     * a method to 
+     * @param <T>
+     * @param list
+     * @return <T> ArrayList<T>
+     */
+    public static <T> ArrayList<T> remove_duplicates(ArrayList<T> list) { 
+    
+        Set<T> set = new LinkedHashSet<>(); 
+        set.addAll(list); 
+        list.clear(); 
+        list.addAll(set); 
+
+        return list; 
+    } 
 }
 
 
