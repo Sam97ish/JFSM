@@ -333,6 +333,36 @@ public class JFSM {
 
       List<String> l9 = new ArrayList<String>();
       l9.add("a");l9.add("b");l9.add("a");l9.add("c");
+      
+      //----------------------------------------------------------------------------
+      //adding new automate afn10 (state 2 is not util)
+        
+        Set<String> A10 = new HashSet<String>();      
+        A10.add("a");A10.add("b");A10.add("c");
+
+        Set<Etat> Q10 = new HashSet<Etat>();
+        Q10.add(new Etat("1"));Q10.add(new Etat("2"));
+        Q10.add(new Etat("3"));
+
+        Set<Transition> mu10 = new HashSet<Transition>();
+        
+        mu10.add(new Transition("1","b","1"));
+        //mu10.add(new EpsilonTransition("1","2"));  to make 2 not util
+        mu10.add(new EpsilonTransition("2","1"));
+        mu10.add(new Transition("2","b","2"));
+        mu10.add(new Transition("1","b","3"));
+        mu10.add(new EpsilonTransition("1","3"));
+
+        Set<String> I10 = new HashSet<String>();
+        I10.add("1");
+
+        Set<String> F10 = new HashSet<String>();
+        F10.add("3");
+
+        AFN afn10 = new AFN(A10, Q10, I10, F10, mu10);
+
+        List<String> l10 = new ArrayList<String>();
+        l9.add("a");l9.add("b");l9.add("a");l9.add("c");
 
 
       
@@ -550,12 +580,22 @@ public class JFSM {
       afn7.getEtat("5").removeEtat(afn7);
       System.out.println(afn7);
       */
-      System.out.println(afn9);
+      //System.out.println(afn9);
       //System.out.println(afn9.estUtile());
       
       //System.out.println(afn9.isAccessible("1"));
       //System.out.println(afn9.isCoaccessible("1"));
-      System.out.println(afn9.getEtat("1").estUtile(afn9));
+      //System.out.println(afn9.getEtat("1").estUtile(afn9));
+        
+        System.out.println(afn10);
+        System.out.println(afn10.isCoaccessible("2"));
+        System.out.println(afn10.isAccessible("2"));
+        System.out.println(afn10.estUtile());
+        System.out.println(afn10.getEtat("2").estUtile(afn10));
+        afn10 = (AFN) afn10.emonder();
+        System.out.println(afn10);
+      
+      
       
 
       

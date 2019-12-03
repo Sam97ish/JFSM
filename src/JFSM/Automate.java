@@ -313,8 +313,8 @@ public class Automate implements Cloneable {
 		
 		for(int i=0 ; i < l_etat.size(); i++) {
 
-			if(!(l_etat.get(i).estUtile(this))){
-				l_etat.get(i).removeEtat(this);
+			if(!(l_etat.get(i).estUtile(afn))){
+				l_etat.get(i).removeEtat(afn);
 
 			}
 		}
@@ -415,6 +415,7 @@ public class Automate implements Cloneable {
 	 * @param name
 	 * @return boolean
 	 */
+	/*
 	public boolean isCoaccessible(String name) {
 		
 		if(this.isFinal(name)) {
@@ -435,7 +436,7 @@ public class Automate implements Cloneable {
 					Transition temp = l_trans.get(i);
 					
 					//adds the source of the transition that has a final state as it's cible. the second condition is to avoid repetition. 
-					if((this.isFinal(temp.cible) )){
+					if((this.isFinal(temp.cible))){
 						if(!(l_etatprec.contains(temp.source))){
 							l_etatprec.add(temp.source);
 						}
@@ -458,6 +459,53 @@ public class Automate implements Cloneable {
 			return l_etatprec.contains(name);
 		}
 	}
+	*/
+	
+	public boolean isCoaccessible(String name) {
+		if(this.isFinal(name)) {
+			return true;
+		}else{
+		
+			//creating a list of all the state that are accessible from the final state
+			ArrayList<String> l_etatPrec = new ArrayList<String>();
+		
+			//creating a list of all the transitions
+			ArrayList<Transition> l_trans = new ArrayList<Transition>();
+			l_trans.addAll(mu);
+		
+			//for to add all the cibles to the list l_cible
+			for(int h=0 ; h <= l_trans.size() ; h++) {
+				for(int i=0 ; i < l_trans.size() ; i++) {
+					Transition temp = l_trans.get(i);
+					if((this.isInitial(temp.cible))) {   //adding the state if the cible is final 
+						
+						if(!(l_etatPrec.contains(temp.source))){ // and if the state does not already exist in l_etatSuivant
+							l_etatPrec.add(temp.source);
+						}
+																						
+						l_trans.remove(i); //deleting the transitions that have been treated
+
+					}
+				}
+				for(int i=0 ; i < l_trans.size() ; i++) {
+					Transition temp = l_trans.get(i);
+					if(l_etatPrec.contains(temp.cible)){  // adding the state if we can access it from the initial state through 
+												              // another state(s) and if the state does not already exist in l_etatSuivant
+						if(!(l_etatPrec.contains(temp.source))) {
+							l_etatPrec.add(temp.source);
+						}
+						l_trans.remove(i);  //deleting the transitions that have been treated
+					}
+				}
+			}
+
+			
+			//return true if the state is accessible 	
+			return(l_etatPrec.contains(name));
+		
+		}	
+	}
+	
 
 	/** 
 	* Permet de transformer l'automate en un automate standard  
