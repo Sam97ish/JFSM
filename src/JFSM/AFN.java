@@ -46,8 +46,9 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Iterator;
-
+import java.util.LinkedHashSet;
 import java.util.Stack;
+import java.util.ArrayList;
 import java.util.Deque;
 
 public class AFN extends Automate {
@@ -64,9 +65,126 @@ public class AFN extends Automate {
 	* Permet de transformer l'automate en un automate déterministe  
 	* @return un automate déterministe équivalent
 	*/
-	public AFD determiniser() { 
-		System.out.println("determiniser() : méthode non implémentée");
-		return null;
+	public Automate determiniser() { 
+		System.out.println("determiniser() : case of not epsilon transition is implemented only");
+		//Standardizing the automata
+		Automate automata = this;
+		
+		ArrayList<String> l_initial = new ArrayList<String>();
+		l_initial.addAll(automata.I);
+		
+		ArrayList<String> l_lang = new ArrayList<String>();
+		l_lang.addAll(automata.A);
+		
+		//list of list of strings to represent the table of transitions
+		ArrayList<ArrayList<String>> table_trans = new ArrayList<ArrayList<String>>();
+		
+		//the first row corresponds to the initial state
+		ArrayList<String> row = new ArrayList<String>();
+		for(int i = 0; i < l_lang.size(); i++) {
+			row.addAll(automata.get_cible(l_initial.get(0), l_lang.get(i)));
+		}
+		
+		//adding the first row of the initial state to the tansitions table 
+		table_trans.add(row);
+		
+		//creating the table of the new states that must be tested
+		ArrayList<String> new_states = new ArrayList<String>();
+		//we must add all the cibles of the initial state
+		new_states.add(l_initial.get(0));
+		
+		int j = 0; 
+		while(j < new_states.size()) {
+			
+			row.clear();
+			
+			//if the cible is composed of several states or not, the process will differ
+			if(new_states.get(j).length() < 1) {	
+				for(int i = 0; i < l_lang.size(); i++) {
+					ArrayList<String> cible = automata.get_cible(new_states.get(j), l_lang.get(i));
+					
+					row.addAll(cible);
+					
+				}
+			}else {
+				for(int i = 0; i < l_lang.size(); i++) {
+					ArrayList<String> cible = new ArrayList<String>();
+					String cibleobtenu = "[";
+					
+					for(int k = 0; k < new_states.get(j).length(); k= 2*k + 1) {
+						String Letter = String.valueOf(new_states.get(j).charAt(k)) ;
+						
+						ArrayList<String> potenital = automata.get_cible(Letter, l_lang.get(i));
+						
+						cibleobtenu = cibleobtenu + ", " + potenital.toString(); 
+					}
+					cibleobtenu.concat("]");
+					
+					cible.add(cibleobtenu);
+					
+					row.addAll(cible);
+					
+				}
+			}
+			table_trans.add(row);
+			
+			new_states.addAll(row);
+			
+			/*remove duplicates from an array list by converting it to a set and then back to an array list
+			 * preserves the insertion order
+			 */
+	        Set<String> set = new LinkedHashSet<>(); 
+	        set.addAll(new_states); 
+	        new_states.clear(); 
+	        new_states.addAll(set); 
+	        j +=1;
+		}
+		
+		//creating the new deterministic automata
+		automata.Q.clear();
+		automata.A.clear();
+		automata.mu.clear();
+		
+		for(int i = 0; i < new_states.size(); i++) {
+			//adding the new state
+			Etat state = new Etat(new_states.get(i));
+			automata.Q.put(new_states.get(i),state);
+			Set<String> old_final = automata.F;
+			automata.F.clear();
+			
+			if(new_states.get(i).length() > 1) {
+				for(int h = 0; h < new_states.get(i).length(); h = 2*h+1) {
+					String Letter = String.valueOf(new_states.get(i).charAt(h)) ;
+					if(old_final.contains(Letter)) {
+						try {
+							automata.setFinal(state);
+						} catch (JFSMException e) {
+							System.out.println("couldnt set the final state " + state.name + e);
+						}
+					}
+				}
+			}else {
+				if(old_final.contains(new_states.get(i))) {
+					try {
+						automata.setFinal(state);
+					} catch (JFSMException e) {
+						System.out.println("couldnt set the final state " + state.name + e);
+					}
+				}
+			}
+			//adding the transitions of the new state
+			ArrayList<String> l_trans = table_trans.get(i);
+			for(int k = 0; k < l_trans.size(); k++) {
+				try {
+					Transition temp = new Transition(new_states.get(i), l_lang.get(k), l_trans.get(k));
+					automata.addTransition(temp);
+				} catch (JFSMException e) {
+					System.out.println("Couldnt create the transition " + e);
+				}
+			}
+		}
+		
+		return automata;
 	}
 
 	public Queue<Transition> next(String symbol) {

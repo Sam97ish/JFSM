@@ -45,6 +45,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 import JFSM.*;
 import JFSM.Transducteur.*;
@@ -388,26 +389,34 @@ public class JFSM {
       System.out.println(afn.estComplet());// should be false
       */
       //testing complet
-      /*
+     /*
       System.out.println(afn.estComplet());// should be false got false
       System.out.println("making the automate compllet");
       System.out.println(afn.complet());
       System.out.println(afn.estComplet());  // should be true got true
-      */
+      
       
       //testing complementaire
-      /*
+     
       System.out.println(afn);
       System.out.println("Making the complementaire of the automate");
       System.out.println(afn.complementaire());
-      */
+     
       //testing etoile 
       /*
       System.out.println(afn6);
       System.out.println("Making an etoile from the automate");
       System.out.println(afn6.etoile());
+
+
+      ArrayList<String> l_test = new ArrayList<String>();
+      l_test.add("a"); l_test.add("b"); l_test.add("c");
+      System.out.println(l_test.toString());
+      System.out.println(String.valueOf('A'));
+
       */
       
+
       //testing rename
       /*
       System.out.println(afn6);
@@ -419,5 +428,41 @@ public class JFSM {
       System.out.println(afn);
       System.out.println(afn6);
       System.out.println(afn.produit(afn6));
+
+      //---------------------------------------------------------------------------
+      //adding new automate afn7 non deterministe
+      Set<String> A7 = new HashSet<String>();      
+      A7.add("a");A7.add("b");A7.add("c");
+
+      Set<Etat> Q7 = new HashSet<Etat>();
+      Q7.add(new Etat("1"));Q7.add(new Etat("2"));
+      Q7.add(new Etat("3"));
+
+      Set<Transition> mu7 = new HashSet<Transition>();
+      mu7.add(new Transition("1","b","1"));
+      mu7.add(new Transition("1","b","2"));
+      mu7.add(new Transition("1","a","2"));
+      mu7.add(new Transition("2","a","1"));
+      mu7.add(new Transition("2","b","2"));
+      mu7.add(new Transition("2","c","3"));
+      mu7.add(new Transition("3","c","3"));
+
+      Set<String> I7 = new HashSet<String>();
+      I7.add("1");
+
+      Set<String> F7 = new HashSet<String>();
+      F7.add("3");
+
+      AFN afn7 = new AFN(A7, Q7, I7, F7, mu7);
+
+      List<String> l7 = new ArrayList<String>();
+      l.add("a");l.add("b");l.add("a");l.add("c");
+      
+      System.out.println(afn7);
+      System.out.println(afn7.determiniser());
+
    }
+
 }
+
+
