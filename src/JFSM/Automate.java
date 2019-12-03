@@ -375,7 +375,7 @@ public class Automate implements Cloneable {
 			ArrayList<Transition> l_trans = new ArrayList<Transition>();
 			l_trans.addAll(mu);
 		
-			//while to add all the cibles to the list l_cible
+			//for to add all the cibles to the list l_cible
 			for(int h=0 ; h <= l_trans.size() ; h++) {
 				for(int i=0 ; i < l_trans.size() ; i++) {
 					Transition temp = l_trans.get(i);
@@ -435,19 +435,25 @@ public class Automate implements Cloneable {
 					Transition temp = l_trans.get(i);
 					
 					//adds the source of the transition that has a final state as it's cible. the second condition is to avoid repetition. 
-					if((this.isFinal(temp.cible) && !(l_etatprec.contains(temp.source)))){
-						l_etatprec.add(temp.source);
+					if((this.isFinal(temp.cible) )){
+						if(!(l_etatprec.contains(temp.source))){
+							l_etatprec.add(temp.source);
+						}
 					}
 					
 					//adds the source of the transition if it's cible is in the list. the second condition is to avoid repetition. 
-					if(l_etatprec.contains(temp.cible) && !(l_etatprec.contains(temp.source))){
-						l_etatprec.add(temp.source);
+					if(l_etatprec.contains(temp.cible)){
+						if(!(l_etatprec.contains(temp.source))){
+							l_etatprec.add(temp.source);
+						}
 					}
 					
-					l_trans.remove(i);
-					
+					if((this.isFinal(temp.cible)) || (l_etatprec.contains(temp.cible))){
+						l_trans.remove(i);
+					}
 				}
 			}
+			System.out.println(l_etatprec);
 			
 			return l_etatprec.contains(name);
 		}

@@ -551,10 +551,12 @@ public class JFSM {
       System.out.println(afn7);
       */
       System.out.println(afn9);
-      System.out.println(afn9.estUtile());
+      //System.out.println(afn9.estUtile());
       
-      //System.out.println(afn9.isAccessible("2"));
-      //System.out.println(afn9.isCoaccessible("2"));
+      //System.out.println(afn9.isAccessible("1"));
+      //System.out.println(afn9.isCoaccessible("1"));
+      System.out.println(afn9.getEtat("1").estUtile(afn9));
+      
 
       
       
