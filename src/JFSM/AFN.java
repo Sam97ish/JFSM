@@ -62,12 +62,12 @@ public class AFN extends Automate {
 	}
 
 	/** 
-	* Permet de transformer l'automate en un automate dÃ©terministe  
-	* @return un automate dÃ©terministe Ã©quivalent
+	* Permet de transformer l'automate en un automate déterministe  
+	* @return un automate déterministe équivalent
 	*/
 	public Automate determiniser() { 
 		System.out.println("determiniser() : case of not epsilon transition is implemented only");
-		//Standardizing the automata
+		
 		Automate automata = this;
 		
 		ArrayList<String> l_initial = new ArrayList<String>();
@@ -86,14 +86,16 @@ public class AFN extends Automate {
 		}
 		
 		//adding the first row of the initial state to the tansitions table 
+		System.out.println("first row " + row);
 		table_trans.add(row);
 		
 		//creating the table of the new states that must be tested
 		ArrayList<String> new_states = new ArrayList<String>();
 		//we must add all the cibles of the initial state
 		new_states.add(l_initial.get(0));
+		new_states.addAll(row);
 		
-		int j = 0; 
+		int j = 1; 
 		while(j < new_states.size()) {
 			
 			row.clear();
@@ -107,18 +109,21 @@ public class AFN extends Automate {
 					
 				}
 			}else {
+				ArrayList<String> cible = new ArrayList<String>();
 				for(int i = 0; i < l_lang.size(); i++) {
-					ArrayList<String> cible = new ArrayList<String>();
-					String cibleobtenu = "[";
+					
+					String cibleobtenu = "";
 					
 					for(int k = 0; k < new_states.get(j).length(); k= 2*k + 1) {
 						String Letter = String.valueOf(new_states.get(j).charAt(k)) ;
 						
 						ArrayList<String> potenital = automata.get_cible(Letter, l_lang.get(i));
+						if(!(potenital.equals("[] "))) {
+							cibleobtenu = cibleobtenu + potenital.toString() + " " ; 
+						}
 						
-						cibleobtenu = cibleobtenu + ", " + potenital.toString(); 
 					}
-					cibleobtenu.concat("]");
+					cibleobtenu.concat("");
 					
 					cible.add(cibleobtenu);
 					
@@ -126,6 +131,9 @@ public class AFN extends Automate {
 					
 				}
 			}
+			
+	        
+			System.out.println("row after the first" + j +" " + row);
 			table_trans.add(row);
 			
 			new_states.addAll(row);
@@ -133,10 +141,10 @@ public class AFN extends Automate {
 			/*remove duplicates from an array list by converting it to a set and then back to an array list
 			 * preserves the insertion order
 			 */
-	        Set<String> set = new LinkedHashSet<>(); 
-	        set.addAll(new_states); 
+	        Set<String> set2 = new LinkedHashSet<>(); 
+	        set2.addAll(new_states); 
 	        new_states.clear(); 
-	        new_states.addAll(set); 
+	        new_states.addAll(set2); 
 	        j +=1;
 		}
 		
@@ -144,13 +152,16 @@ public class AFN extends Automate {
 		automata.Q.clear();
 		automata.A.clear();
 		automata.mu.clear();
+		Set<String> old_final = automata.F;
+		automata.F.clear();
 		
 		for(int i = 0; i < new_states.size(); i++) {
 			//adding the new state
 			Etat state = new Etat(new_states.get(i));
+			//System.out.println("new states " + new_states.get(i));
+			
 			automata.Q.put(new_states.get(i),state);
-			Set<String> old_final = automata.F;
-			automata.F.clear();
+			
 			
 			if(new_states.get(i).length() > 1) {
 				for(int h = 0; h < new_states.get(i).length(); h = 2*h+1) {
@@ -173,9 +184,24 @@ public class AFN extends Automate {
 				}
 			}
 			//adding the transitions of the new state
+			System.out.println("table of transitions ; "+ table_trans.toString());
 			ArrayList<String> l_trans = table_trans.get(i);
-			for(int k = 0; k < l_trans.size(); k++) {
+			
+			/*remove duplicates from an array list by converting it to a set and then back to an array list
+			 * preserves the insertion order
+			 */
+	        Set<String> set = new LinkedHashSet<>(); 
+	        set.addAll(l_trans); 
+	        l_trans.clear(); 
+	        l_trans.addAll(set);
+	        
+			for(int k = 0; k < l_lang.size(); k++) {
 				try {
+					
+					System.out.println("new state " + new_states.get(i));
+					System.out.println("lang " + l_lang.get(k));
+					System.out.println("l trans " + l_trans.get(k));
+					
 					Transition temp = new Transition(new_states.get(i), l_lang.get(k), l_trans.get(k));
 					automata.addTransition(temp);
 				} catch (JFSMException e) {
@@ -188,7 +214,7 @@ public class AFN extends Automate {
 	}
 
 	public Queue<Transition> next(String symbol) {
-		assert A.contains(symbol) : "next() : le symbole doit Ãªtre un symbole de l'alphabet." ;
+		assert A.contains(symbol) : "next() : le symbole doit être un symbole de l'alphabet." ;
 		Queue<Transition> l = new LinkedList<Transition>();
 		for(Transition t : mu) {
 			if (t.candidate(current,symbol)) {
@@ -198,7 +224,7 @@ public class AFN extends Automate {
 		return l;
 	}
 
-	// ATTENTION : Fonctionne pas si l'automate possÃ¨de un cycle d'espilon-transitions !
+	// ATTENTION : Fonctionne pas si l'automate possède un cycle d'espilon-transitions !
 	private boolean runAFN(String currentState, Deque<String> evts) {
 		boolean ok = false;
 		System.out.println("State:"+evts+"/"+currentState);
@@ -206,7 +232,7 @@ public class AFN extends Automate {
 		if (evts.isEmpty()) {
 			ok = isFinal(currentState);
 			if (ok) System.out.println("OK");
-			else System.out.println("Echec (Ã©tat non final)");
+			else System.out.println("Echec (état non final)");
 			return ok;
 		} else {
 			String symbol = evts.pollFirst();

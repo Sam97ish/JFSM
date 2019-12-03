@@ -54,43 +54,9 @@ public class Etat  implements Cloneable {
 	public String toString() {
 		return this.name;//+'('+this.no+')';
 	}
-	
-	/**
-	 * Method to change the name of the state and changing it's name in all the transition
-	 * @param newName  the new name of the state
-	 * @param afn the automate of the state
-	 */
-	public void rename(String newName ,Automate afn) {
-		//does not change the key of the map
-		
-		//making an ArrayList of all the transitions
-		ArrayList<Transition> l_t = new ArrayList<Transition>();
-		l_t.addAll(afn.mu);
-		
-		for(int t=0 ; t < l_t.size() ; t++) {
-			if(l_t.get(t).source == this.toString()) {
-				l_t.get(t).source = newName;
-			}
-			if(l_t.get(t).cible == this.toString()) {
-				l_t.get(t).cible = newName;
-			}
-		}
-		//clearing the set of all transition and giving it the new values
-		afn.mu.clear();
-		afn.mu.addAll(l_t);
-		
-		//if this is a initial state update it's name in I
-		if(afn.I.contains(this.toString())) {
-			afn.I.remove(this.toString());
-			afn.I.add(newName);
-		}
-		//if this is a final state update it's name in F
-		if(afn.F.contains(this.toString())) {
-		afn.F.remove(this.toString());
-		afn.F.add(newName);
-		}
+
+	public void rename(String newName) {
 		this.name = newName ;
-		
 	}
 	
 	public Object clone() {
@@ -109,10 +75,10 @@ public class Etat  implements Cloneable {
 	  * Method that verifies whether the state is utile or not
 	  * @return (true or false)
 	  */
-	public boolean estUtile(Automate afn) {
+	public boolean estUtile(Automate af) {
 		
 		
-		return (afn.isAccessible(this.name) && afn.isCoaccessible(this.name));
+		return (af.isAccessible(this.name) && af.isCoaccessible(this.name));
 	}
 	
 	/**
@@ -182,4 +148,3 @@ public class Etat  implements Cloneable {
 		return ok;
 	}
 }
-

@@ -45,9 +45,9 @@ public class Transition implements Cloneable {
 	public String symbol;
 
 	public Transition(String s, String symbol, String c) throws JFSMException {
-		if (symbol==null) throw new JFSMException("Un symbole ne peut pas Ãªtre absent");
+		if (symbol==null) throw new JFSMException("Un symbole ne peut pas être absent");
 		if ((symbol.equals(""))||(symbol.equals("\u03b5"))) 
-			throw new JFSMException("Un symbole ne peut pas Ãªtre vide ou \u03b5");
+			throw new JFSMException("Un symbole ne peut pas être vide ou \u03b5");
 
 		Transition.nb++;
 		this.no = Transition.nb;
@@ -81,8 +81,8 @@ public class Transition implements Cloneable {
 	public String toString(){return source+" -"+symbol+"-> "+cible;}
 
 	/** 
-	* Modidifie l'Ã©tat source de la transition  
-	* @param s Le nom de l'Ã©tat source
+	* Modidifie l'état source de la transition  
+	* @param s Le nom de l'état source
 	*/
 	public void changeSource(String s) {
 		this.source = s;
@@ -96,10 +96,10 @@ public class Transition implements Cloneable {
 	}
 
 	/** 
-	* Indique si la transition peut Ãªtre appliquÃ©e depuis cet Ã©tat sur ce symbole.  
-	* @param etat L'Ã©tat courant
+	* Indique si la transition peut être appliquée depuis cet état sur ce symbole.  
+	* @param etat L'état courant
 	* @param symbol Le symbol courant
-	* @return boolÃ©en Ã  vrai si la transition est applicable, faux sinon
+	* @return booléen à vrai si la transition est applicable, faux sinon
 	*/
 	public boolean candidate(String etat, String symbol) {
 		return etat.equals(source) && symbol.equals(this.symbol);
@@ -107,7 +107,7 @@ public class Transition implements Cloneable {
 
 	/** 
 	* Applique la transition.  
-	* @return le nouvel Ã©tat
+	* @return le nouvel état
 	*/
 	public String appliquer() {
 		return cible ;
