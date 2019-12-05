@@ -83,12 +83,9 @@ public class JFSM {
       System.out.println(afn);
       System.out.println(afn.run(l));
       System.out.println(afn.emonder());
-
       System.out.println(afn);
       System.out.println("Epsilon Libre ? "+afn.epsilonLibre());
-
       afn.save("test.jff");
-
       Automate afn2 = Automate.load("essai.jff");
       System.out.println(afn2.getClass().getName());
       System.out.println(afn2);
@@ -245,6 +242,128 @@ public class JFSM {
       F6.add("5");
       
       Automate afn6 = new AFD(A6, Q6, "1", F6, mu6);
+      
+      //---------------------------------------------------------------------------
+      //adding new automate afn8
+      /*
+      Set<String> A8 = new HashSet<String>();      
+      A8.add("a");A8.add("b");A8.add("c");
+
+      Set<Etat> Q8 = new HashSet<Etat>();
+      Q8.add(new Etat("1"));Q8.add(new Etat("2"));
+      Q8.add(new Etat("3"));Q8.add(new Etat("4"));Q8.add(new Etat("5"));
+
+      Set<Transition> mu8 = new HashSet<Transition>();
+      mu8.add(new Transition("1","a","2"));
+      mu8.add(new Transition("1","b","4"));
+      mu8.add(new Transition("2","b","3"));
+      mu8.add(new Transition("2","c","4"));
+      mu8.add(new Transition("3","a","2"));
+      mu8.add(new Transition("3","b","4"));
+      mu8.add(new Transition("4","a","5"));
+      mu8.add(new EpsilonTransition("1","2"));
+      
+
+
+      Set<String> F8 = new HashSet<String>();
+      F8.add("5");F8.add("6");
+      
+      Automate afn8 = new AFD(A8, Q8, "1", F8, mu8);
+      */
+      Set<String> A7 = new HashSet<String>();      
+      A7.add("a");A7.add("b");A7.add("c");
+
+      Set<Etat> Q7 = new HashSet<Etat>();
+      Q7.add(new Etat("1"));Q7.add(new Etat("2"));
+      Q7.add(new Etat("3"));Q7.add(new Etat("4"));
+      Q7.add(new Etat("5"));
+
+      Set<Transition> mu7 = new HashSet<Transition>();
+      mu7.add(new Transition("1","b","1"));
+      mu7.add(new Transition("1","b","2"));
+      mu7.add(new Transition("1","a","2"));
+      mu7.add(new Transition("2","a","1"));
+      mu7.add(new Transition("2","b","2"));
+      mu7.add(new Transition("2","c","3"));
+      mu7.add(new Transition("3","c","3"));
+      mu7.add(new Transition("4","c","2"));
+      mu7.add(new Transition("5","c","3"));
+      mu7.add(new EpsilonTransition("5","2"));
+      mu7.add(new EpsilonTransition("1","2"));
+      mu7.add(new EpsilonTransition("4","2"));
+      mu7.add(new EpsilonTransition("1","4"));
+
+      Set<String> I7 = new HashSet<String>();
+      I7.add("1");I7.add("2");
+
+      Set<String> F7 = new HashSet<String>();
+      F7.add("3");F7.add("5");
+
+      AFN afn7 = new AFN(A7, Q7, I7, F7, mu7);
+
+      List<String> l7 = new ArrayList<String>();
+      l.add("a");l.add("b");l.add("a");l.add("c");
+      
+      //----------------------------------------------------------------------------
+    //adding new automate afn9
+      
+      Set<String> A9 = new HashSet<String>();      
+      A9.add("a");A9.add("b");A9.add("c");
+
+      Set<Etat> Q9 = new HashSet<Etat>();
+      Q9.add(new Etat("1"));Q9.add(new Etat("2"));
+      Q9.add(new Etat("3"));
+
+      Set<Transition> mu9 = new HashSet<Transition>();
+      
+      mu9.add(new Transition("1","b","1"));
+      mu9.add(new EpsilonTransition("1","2"));
+      mu9.add(new EpsilonTransition("2","1"));
+      mu9.add(new Transition("2","b","2"));
+      mu9.add(new EpsilonTransition("2","3"));
+      mu9.add(new Transition("3","c","3"));
+
+      Set<String> I9 = new HashSet<String>();
+      I9.add("1");
+
+      Set<String> F9 = new HashSet<String>();
+      F9.add("3");
+
+      AFN afn9 = new AFN(A9, Q9, I9, F9, mu9);
+
+      List<String> l9 = new ArrayList<String>();
+      l9.add("a");l9.add("b");l9.add("a");l9.add("c");
+      
+      //----------------------------------------------------------------------------
+      //adding new automate afn10 (state 2 is not util)
+        
+        Set<String> A10 = new HashSet<String>();      
+        A10.add("a");A10.add("b");A10.add("c");
+
+        Set<Etat> Q10 = new HashSet<Etat>();
+        Q10.add(new Etat("1"));Q10.add(new Etat("2"));
+        Q10.add(new Etat("3"));
+
+        Set<Transition> mu10 = new HashSet<Transition>();
+        
+        mu10.add(new Transition("1","b","1"));
+        //mu10.add(new EpsilonTransition("1","2"));  to make 2 not util
+        mu10.add(new EpsilonTransition("2","1"));
+        mu10.add(new Transition("2","b","2"));
+        mu10.add(new Transition("1","b","3"));
+        mu10.add(new EpsilonTransition("1","3"));
+
+        Set<String> I10 = new HashSet<String>();
+        I10.add("1");
+
+        Set<String> F10 = new HashSet<String>();
+        F10.add("3");
+
+        AFN afn10 = new AFN(A10, Q10, I10, F10, mu10);
+
+        List<String> l10 = new ArrayList<String>();
+        l9.add("a");l9.add("b");l9.add("a");l9.add("c");
+
 
       
       
@@ -302,7 +421,6 @@ public class JFSM {
       System.out.println(afn3.run(l5));
       System.out.println(afn3.emonder());
       
-
       System.out.println(afn3);
       System.out.println("Epsilon Libre ? "+afn3.epsilonLibre());
        */
@@ -365,7 +483,6 @@ public class JFSM {
 
       /*
       //testing normalise 
-
       System.out.println(afn);
       System.out.println(afn.estNormalise());  //expect false got false
       System.out.println("normalising the automate");
@@ -403,7 +520,8 @@ public class JFSM {
       System.out.println(afn6);
       System.out.println("Making an etoile from the automate");
       System.out.println(afn6.etoile());
-
+      
+      
       ArrayList<String> l_test = new ArrayList<String>();
       l_test.add("a"); l_test.add("b"); l_test.add("c");
       System.out.println(l_test.toString());
@@ -412,6 +530,7 @@ public class JFSM {
       
       //---------------------------------------------------------------------------
       //adding new automate afn7 non deterministe
+      /*
       Set<String> A7 = new HashSet<String>();      
       A7.add("a");A7.add("b");A7.add("c");
 
@@ -441,8 +560,47 @@ public class JFSM {
       
       System.out.println(afn7);
       System.out.println(afn7.determiniser());
+      
+      */
+      
+      //testing normaliser with epsilon
+      /*
+        System.out.println(afn8);
+      System.out.println(afn8.etoile());
+      
+      */
+      
+      //test normaliser with epsilon
+      /*
+      System.out.println(afn7);
+      System.out.println(afn7.normaliser());
+      */
+      /*
+      System.out.println(afn7);
+      afn7.getEtat("5").removeEtat(afn7);
+      System.out.println(afn7);
+      */
+      //System.out.println(afn9);
+      //System.out.println(afn9.estUtile());
+      
+      //System.out.println(afn9.isAccessible("1"));
+      //System.out.println(afn9.isCoaccessible("1"));
+      //System.out.println(afn9.getEtat("1").estUtile(afn9));
+        
+        System.out.println(afn10);
+        System.out.println(afn10.isCoaccessible("2"));
+        System.out.println(afn10.isAccessible("2"));
+        System.out.println(afn10.estUtile());
+        System.out.println(afn10.getEtat("2").estUtile(afn10));
+        afn10 = (AFN) afn10.emonder();
+        System.out.println(afn10);
+      
+      
+      
+
+      
+      
+      
    }
 
 }
-
-

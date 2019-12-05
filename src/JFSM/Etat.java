@@ -148,4 +148,3 @@ public class Etat  implements Cloneable {
 		return ok;
 	}
 }
-
