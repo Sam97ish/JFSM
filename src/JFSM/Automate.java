@@ -533,18 +533,23 @@ public class Automate implements Cloneable {
 					try {
 						//created a temporary transition with the source as the new initial state which will be added to the set of transitions
 						if(!(afn.isInitial(cible))){
-							Transition temp;
-							temp = new Transition("initial", l_t.get(i).symbol, l_t.get(i).cible);
+							if(l_t.get(i) instanceof EpsilonTransition) {
+								try {
+									EpsilonTransition temp = new EpsilonTransition("initial", l_t.get(i).cible);
+									afn.addTransition(temp);
+								} catch (JFSMException e) {
+									System.out.println("Can not make the new transition + e");
+								}
 							
-							//XXX : there are duplicates in the print of the set of transitions for some reason (maybe try addTransition)
-							
-							//adding the temporary transition if not already present 
-							if(!(afn.mu.contains(temp))) {
-								afn.mu.add(temp);
+							}else {
+								Transition temp;
+								temp = new Transition("initial", l_t.get(i).symbol, l_t.get(i).cible);
+								
+									afn.addTransition(temp);
+								
+						
 							}
-						
 						}
-						
 						//removing the original transition with the old initial state as source.
 						afn.mu.remove(l_t.get(i));
 						
