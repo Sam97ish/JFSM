@@ -321,8 +321,6 @@ public class Automate implements Cloneable {
 		
 		
 
-		// A compléter (complete the Method delete() in Etat)
-
 		return afn;
 	}
 
@@ -550,11 +548,6 @@ public class Automate implements Cloneable {
 						
 							}
 						}
-						//removing the original transition with the old initial state as source.
-						afn.mu.remove(l_t.get(i));
-						
-						
-						
 						
 					} catch (JFSMException e) {
 							System.out.println("error while adding a new transition with the new initial state error : " + e);
@@ -562,13 +555,12 @@ public class Automate implements Cloneable {
 					
 				}
 				
-				if(afn.isInitial(cible)) {
-					
-					//removing the original transition with the old initial state as cible.
-					afn.mu.remove(l_t.get(i));
-				}
-				
 			}
+			
+			//making an ArrayList of the old initial states
+			ArrayList<String> l_initial = new ArrayList<String>();
+			l_initial.addAll(afn.I);
+			
 			
 
 			//clearing the old initial states set
@@ -579,13 +571,16 @@ public class Automate implements Cloneable {
 			} catch (JFSMException e) {
 				System.out.println("failed to set the new initial state as initial : " + e);
 			
-				
 			}
 			
-			//using the method emonder to remove the states that are not utile
+			// deleting the old initial states that are no longer accessible 
+			for (int i =0 ; i < l_initial.size() ; i++) {
+				if(!(afn.isAccessible(l_initial.get(i)))) {
+					afn.getEtat(l_initial.get(i)).removeEtat(afn);
+				}
+			}
 			
-			//afn = afn.emonder();
-			
+		
 		}
 		
 		return afn;

@@ -586,7 +586,8 @@ public class JFSM {
       //System.out.println(afn9.isAccessible("1"));
       //System.out.println(afn9.isCoaccessible("1"));
       //System.out.println(afn9.getEtat("1").estUtile(afn9));
-      /*  
+       
+        /*
         System.out.println(afn10);
         System.out.println(afn10.isCoaccessible("2"));
         System.out.println(afn10.isAccessible("2"));
@@ -594,8 +595,8 @@ public class JFSM {
         System.out.println(afn10.getEtat("2").estUtile(afn10));
         afn10 = (AFN) afn10.emonder();
         System.out.println(afn10);
-      
       */
+      
       /*
         //test of standariser with epsilon transition
        System.out.println(afn10.standardiser()); 
@@ -646,6 +647,7 @@ public class JFSM {
          
          */
         
+        
         // test de BUGA Standard DISTANCIEL
         System.out.println("is it standard ?");
         System.out.println(afn3.estStandard());
@@ -659,6 +661,7 @@ public class JFSM {
         System.out.println("what about now ?");
         System.out.println(afn3.normaliser());
         System.out.println(afn3.normaliser().estNormalise());
+        
         
    }
 
