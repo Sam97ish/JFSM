@@ -563,7 +563,7 @@ public class JFSM {
       
       */
       
-      //testing normaliser with epsilon
+      //testing etoile with epsilon
       /*
         System.out.println(afn8);
       System.out.println(afn8.etoile());
