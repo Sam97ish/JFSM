@@ -306,7 +306,7 @@ public class Automate implements Cloneable {
 		Automate afn = (Automate) this.clone();
 		
 		//Getting a Collection of values from Map 
-		Collection<Etat> values = this.Q.values();
+		Collection<Etat> values = afn.Q.values();
 		
 		//Creating an ArrayList of values 
 		ArrayList<Etat> l_etat = new ArrayList<Etat>(values);
@@ -570,14 +570,7 @@ public class Automate implements Cloneable {
 				
 			}
 			
-			//removing all the old initial states from the set Q
-			ArrayList<String> l_initial = new ArrayList<String>();
-			l_initial.addAll(afn.I);
-			
-			for(int i = 0; i < l_initial.size(); i++) {
-				afn.Q.remove(l_initial.get(i));
-			}
-			
+
 			//clearing the old initial states set
 			afn.I.clear();
 			
@@ -587,11 +580,14 @@ public class Automate implements Cloneable {
 				System.out.println("failed to set the new initial state as initial : " + e);
 			
 				
+			}
+			
+			//using the method emonder to remove the states that are not utile
+			
+			//afn = afn.emonder();
+			
 		}
 		
-		
-		
-		}
 		return afn;
 	}
 		
@@ -644,7 +640,7 @@ public class Automate implements Cloneable {
 		if(!(afn.estNormalise())) {
 			System.out.println("before");
 			// making the automate standard
-			afn.standardiser();
+			afn = afn.standardiser();
 			System.out.println("after");
 			
 			//creating a new  state
