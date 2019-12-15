@@ -45,9 +45,9 @@ public class Transition implements Cloneable {
 	public String symbol;
 
 	public Transition(String s, String symbol, String c) throws JFSMException {
-		if (symbol==null) throw new JFSMException("Un symbole ne peut pas être absent");
+		if (symbol==null) throw new JFSMException("Un symbole ne peut pas ï¿½tre absent");
 		if ((symbol.equals(""))||(symbol.equals("\u03b5"))) 
-			throw new JFSMException("Un symbole ne peut pas être vide ou \u03b5");
+			throw new JFSMException("Un symbole ne peut pas ï¿½tre vide ou \u03b5");
 
 		Transition.nb++;
 		this.no = Transition.nb;
@@ -81,8 +81,8 @@ public class Transition implements Cloneable {
 	public String toString(){return source+" -"+symbol+"-> "+cible;}
 
 	/** 
-	* Modidifie l'état source de la transition  
-	* @param s Le nom de l'état source
+	* Modidifie l'ï¿½tat source de la transition  
+	* @param s Le nom de l'ï¿½tat source
 	*/
 	public void changeSource(String s) {
 		this.source = s;
@@ -96,10 +96,10 @@ public class Transition implements Cloneable {
 	}
 
 	/** 
-	* Indique si la transition peut être appliquée depuis cet état sur ce symbole.  
-	* @param etat L'état courant
+	* Indique si la transition peut ï¿½tre appliquï¿½e depuis cet ï¿½tat sur ce symbole.  
+	* @param etat L'ï¿½tat courant
 	* @param symbol Le symbol courant
-	* @return booléen à vrai si la transition est applicable, faux sinon
+	* @return boolï¿½en ï¿½ vrai si la transition est applicable, faux sinon
 	*/
 	public boolean candidate(String etat, String symbol) {
 		return etat.equals(source) && symbol.equals(this.symbol);
@@ -107,10 +107,48 @@ public class Transition implements Cloneable {
 
 	/** 
 	* Applique la transition.  
-	* @return le nouvel état
+	* @return le nouvel ï¿½tat
 	*/
 	public String appliquer() {
 		return cible ;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cible == null) ? 0 : cible.hashCode());
+		result = prime * result + ((source == null) ? 0 : source.hashCode());
+		result = prime * result + ((symbol == null) ? 0 : symbol.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Transition))
+			return false;
+		Transition other = (Transition) obj;
+		if (cible == null) {
+			if (other.cible != null)
+				return false;
+		} else if (!cible.equals(other.cible))
+			return false;
+		if (source == null) {
+			if (other.source != null)
+				return false;
+		} else if (!source.equals(other.source))
+			return false;
+		if (symbol == null) {
+			if (other.symbol != null)
+				return false;
+		} else if (!symbol.equals(other.symbol))
+			return false;
+		return true;
+	}
+	
 
 }
