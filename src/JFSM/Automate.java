@@ -475,7 +475,7 @@ public class Automate implements Cloneable {
 			for(int h=0 ; h <= l_trans.size() ; h++) {
 				for(int i=0 ; i < l_trans.size() ; i++) {
 					Transition temp = l_trans.get(i);
-					if((this.isInitial(temp.cible))) {   //adding the state if the cible is final 
+					if((this.isFinal(temp.cible))) {   //adding the state if the cible is final 
 						
 						if(!(l_etatPrec.contains(temp.source))){ // and if the state does not already exist in l_etatSuivant
 							l_etatPrec.add(temp.source);
@@ -636,10 +636,9 @@ public class Automate implements Cloneable {
 		Automate afn = (Automate) this.clone();
 		
 		if(!(afn.estNormalise())) {
-			System.out.println("before");
+			
 			// making the automate standard
 			afn = afn.standardiser();
-			System.out.println("after");
 			
 			//creating a new  state
 			Etat finale = new Etat("finale");
@@ -674,8 +673,10 @@ public class Automate implements Cloneable {
 			ArrayList<String> l_final = new ArrayList<String>();
 			l_final.addAll(afn.F);
 			
-			//Deleting the old final states 
+			//clearing the list of finale states
 			afn.F.clear();
+			
+			//adding the new finale state
 			try {
 				afn.setFinal(finale);
 			} catch (JFSMException e) {
