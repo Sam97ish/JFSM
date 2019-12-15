@@ -373,13 +373,13 @@ public class JFSM {
       //System.out.println(afn.estStandard()); expect true
       //System.out.println(afn3.estStandard()); expect false
       
-      //test de afn (Standardiser)
-     /* System.out.println(afn3.estStandard());
+     /* //test de afn (Standardiser)
+      System.out.println(afn3.estStandard());
       System.out.println("after Standardiser");
       System.out.println(afn3.standardiser());
       Automate afn3_standarised = afn3.standardiser();
       System.out.println(afn3_standarised .estStandard());
-      */
+     */
 
       /*
       //test isAccessible avec afn and the state 4
@@ -586,7 +586,7 @@ public class JFSM {
       //System.out.println(afn9.isAccessible("1"));
       //System.out.println(afn9.isCoaccessible("1"));
       //System.out.println(afn9.getEtat("1").estUtile(afn9));
-        
+      /*  
         System.out.println(afn10);
         System.out.println(afn10.isCoaccessible("2"));
         System.out.println(afn10.isAccessible("2"));
@@ -595,12 +595,28 @@ public class JFSM {
         afn10 = (AFN) afn10.emonder();
         System.out.println(afn10);
       
+      */
+      /*
+        //test of standariser with epsilon transition
+       System.out.println(afn10.standardiser()); 
       
+      marche bien
       
-
-      
-      
-      
+      */
+        // test de BUGA Standard DISTANCIEL
+        System.out.println("is it standard ?");
+        System.out.println(afn3.estStandard());
+        System.out.println("what about now ?");
+        System.out.println(afn3.standardiser());
+        System.out.println(afn3.standardiser().estStandard());
+        
+        //test de BUGA Normal DISTANCIEL
+        System.out.println("is it normal ?");
+        System.out.println(afn3.standardiser().estNormalise());
+        System.out.println("what about now ?");
+        System.out.println(afn3.normaliser());
+        System.out.println(afn3.normaliser().estNormalise());
+        
    }
 
 }
