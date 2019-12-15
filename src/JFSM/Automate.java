@@ -573,12 +573,15 @@ public class Automate implements Cloneable {
 			
 			}
 			
+			
 			// deleting the old initial states that are no longer accessible 
 			for (int i =0 ; i < l_initial.size() ; i++) {
 				if(!(afn.isAccessible(l_initial.get(i)))) {
 					afn.getEtat(l_initial.get(i)).removeEtat(afn);
 				}
 			}
+			
+			
 			
 		
 		}
@@ -640,51 +643,53 @@ public class Automate implements Cloneable {
 			
 			//creating a new  state
 			Etat finale = new Etat("finale");
-			this.addEtat(finale);
+			afn.addEtat(finale);
 			
 			// changing every cible of each transition from the old final states to the new state
 			// making an ArrayList of all the transition
 			ArrayList<Transition> l_t = new ArrayList<Transition>();
-			l_t.addAll(this.mu);
+			l_t.addAll(afn.mu);
 			
 			for(int i = 0 ; i < l_t.size() ; i++) {
-				if(this.F.contains(l_t.get(i).cible)) {
-					this.mu.remove(l_t.get(i));
+				if(afn.F.contains(l_t.get(i).cible)) {
 					if(l_t.get(i) instanceof EpsilonTransition) {
 						try {
 							EpsilonTransition temp = new EpsilonTransition(l_t.get(i).source , finale.toString());
-							this.mu.add(temp);
+							afn.mu.add(temp);
 						} catch (JFSMException e) {
 							System.out.println("Can not make the new transition + e");
 						}
 					}else {
 						try {
 							Transition temp = new Transition(l_t.get(i).source , l_t.get(i).symbol , finale.toString());
-							this.mu.add(temp);
+							afn.mu.add(temp);
 						} catch (JFSMException e) {
 							System.out.println("Can not make the new transition + e");
 						}
 					}
 				}
 			}
-			/*
-			//making a temporary set of transition
-			Set<Transition> temp = new HashSet<Transition>(l_t);
 			
-			//Updating mu with the new values from temp
-			this.mu = temp;
-			*/
+			//Making an ArrayList of the old final states
+			ArrayList<String> l_final = new ArrayList<String>();
+			l_final.addAll(afn.F);
+			
 			//Deleting the old final states 
-			this.F.clear();
+			afn.F.clear();
 			try {
-				this.setFinal(finale);
+				afn.setFinal(finale);
 			} catch (JFSMException e) {
 				System.out.println("Can not make the new final state (finale a finale because it's missing) + e");
 			}
 			
-			//Making the afn emonder
+			// deleting the old final states that are no longer coaccessible
+			for (int i =0 ; i < l_final.size() ; i++) {
+				if(!(afn.isCoaccessible(l_final.get(i)))) {
+					afn.getEtat(l_final.get(i)).removeEtat(afn);
+				}
+			}
 			
-			afn.emonder();
+			
 		}
 		return afn;
 	}
