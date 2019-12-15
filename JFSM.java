@@ -649,6 +649,7 @@ public class JFSM {
         
         
         // test de BUGA Standard DISTANCIEL
+        System.out.println(afn3);
         System.out.println("is it standard ?");
         System.out.println(afn3.estStandard());
         System.out.println("what about now ?");

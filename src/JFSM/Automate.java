@@ -530,7 +530,7 @@ public class Automate implements Cloneable {
 				if(afn.isInitial(source)) {		
 					try {
 						//created a temporary transition with the source as the new initial state which will be added to the set of transitions
-						if(!(afn.isInitial(cible))){
+						
 							if(l_t.get(i) instanceof EpsilonTransition) {
 								try {
 									EpsilonTransition temp = new EpsilonTransition("initial", l_t.get(i).cible);
@@ -547,7 +547,7 @@ public class Automate implements Cloneable {
 								
 						
 							}
-						}
+						
 						
 					} catch (JFSMException e) {
 							System.out.println("error while adding a new transition with the new initial state error : " + e);
