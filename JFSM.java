@@ -601,8 +601,22 @@ public class JFSM {
        System.out.println(afn10.standardiser()); 
       
       marche bien
-      */
       
+      */
+        // test de BUGA Standard DISTANCIEL
+        System.out.println("is it standard ?");
+        System.out.println(afn3.estStandard());
+        System.out.println("what about now ?");
+        System.out.println(afn3.standardiser());
+        System.out.println(afn3.standardiser().estStandard());
+        
+        //test de BUGA Normal DISTANCIEL
+        System.out.println("is it normal ?");
+        System.out.println(afn3.standardiser().estNormalise());
+        System.out.println("what about now ?");
+        System.out.println(afn3.normaliser());
+        System.out.println(afn3.normaliser().estNormalise());
+        
    }
 
 }
