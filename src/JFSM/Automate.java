@@ -708,20 +708,20 @@ public class Automate implements Cloneable {
 				l_finale.addAll(this.F);
 				
 				if(!(this.getEtat(l_finale.get(0)).isSource(this))) {
-					System.out.println("This automate is normalise");
+					System.out.println("l'automate est normalise");
 					return true;
 				}else {
-					System.out.println("the automate is not normalise because the finale state is a source of a transition");
+					System.out.println("l'automate n'est pas normal car une etat finale est une source de transition");
 					return false;
 				}
 				
 			}else {
-				System.out.println("the automate is not normalise because it has more then one state finale");
+				System.out.println("l'automate n'est pas normal car il y a plus qu'une etat finale");
 				return false;
 			}
 			
 		}else {
-			System.out.println("the automate is not normalise because it's not standard");
+			System.out.println("l'automate n'est pas normal car il n'est pas standard.");
 			return false;
 		}
 	}
