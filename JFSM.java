@@ -145,19 +145,26 @@ public class JFSM {
       l2.add("MEU");l2.add("MEU");l2.add("BU");l2.add("ZO");
       l2.add("BU");l2.add("MEU");
       
+      //afn3.run(l2);
+      
       //GABUZOMEU
       List<String> l3 = new ArrayList<String>();
       l3.add("GA");l3.add("BU");l3.add("ZO");l3.add("MEU");
+      
+      //afn3.run(l3);
       
       //ZOZOGAZOGAGAZO
       List<String> l4 = new ArrayList<String>();
       l4.add("ZO");l4.add("ZO");l4.add("GA");l4.add("ZO");
       l4.add("GA");l4.add("GA");l4.add("ZO");
       
+     //afn3.run(l4);
+      
       //BUGAZOMEU
       List<String> l5 = new ArrayList<String>();
       l5.add("BU");l5.add("GA");l5.add("ZO");l5.add("MEU");
       
+     afn3.run(l5);
       
       //---------------------------------------------------------------------------
       //adding new automate afn4 
@@ -647,7 +654,7 @@ public class JFSM {
          
          */
         
-        
+       /* 
         // test de BUGA Standard DISTANCIEL
         System.out.println(afn3);
         System.out.println("is it standard ?");
@@ -663,7 +670,7 @@ public class JFSM {
         System.out.println(afn3.normaliser());
         System.out.println(afn3.normaliser().estNormalise());
         
-        
+        */
    }
 
 }
