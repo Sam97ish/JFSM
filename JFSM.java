@@ -373,8 +373,8 @@ public class JFSM {
       //System.out.println(afn.estStandard()); expect true
       //System.out.println(afn3.estStandard()); expect false
       
-     /* //test de afn (Standardiser)
-      System.out.println(afn3.estStandard());
+        //test de afn (Standardiser)
+        /* System.out.println(afn3.estStandard());
       System.out.println("after Standardiser");
       System.out.println(afn3.standardiser());
       Automate afn3_standarised = afn3.standardiser();
@@ -563,7 +563,7 @@ public class JFSM {
       
       */
       
-      //testing normaliser with epsilon
+      //testing etoile with epsilon
       /*
         System.out.println(afn8);
       System.out.println(afn8.etoile());
@@ -586,7 +586,8 @@ public class JFSM {
       //System.out.println(afn9.isAccessible("1"));
       //System.out.println(afn9.isCoaccessible("1"));
       //System.out.println(afn9.getEtat("1").estUtile(afn9));
-      /*  
+       
+        /*
         System.out.println(afn10);
         System.out.println(afn10.isCoaccessible("2"));
         System.out.println(afn10.isAccessible("2"));
@@ -594,8 +595,8 @@ public class JFSM {
         System.out.println(afn10.getEtat("2").estUtile(afn10));
         afn10 = (AFN) afn10.emonder();
         System.out.println(afn10);
-      
       */
+      
       /*
         //test of standariser with epsilon transition
        System.out.println(afn10.standardiser()); 
@@ -603,7 +604,52 @@ public class JFSM {
       marche bien
       
       */
+        
+        /*
+        //test of standariser with epsilon transition
+        System.out.println(afn10);
+        System.out.println(afn10.estStandard());
+       System.out.println(afn10.standardiser()); 
+      
+      //Possible to have two equal transition fixed with overriding equal and hashcode
+      */
+     
+     //testing normaliser with epsilon
+       /*
+       System.out.println(afn8);
+       System.out.println(afn8.estNormalise());
+       System.out.println(afn8.normaliser());
+       
+       //marche bien
+     */
+       /* 
+        //testing transpose
+        
+        System.out.println(afn);
+        System.out.println("Making the transpose of the automate");
+        System.out.println(afn.transpose());
+        
+        //testing tranpose with epsilon
+        System.out.println(afn9);
+        System.out.println("Making the transpose of the automate");
+        System.out.println(afn9.transpose());
+        
+        //marche bien
+       */
+        
+        /*
+        //testing etoile avec epsilon
+        System.out.println(afn6);
+        System.out.println("Making an etoile from the automate");
+        System.out.println(afn6.etoile());
+        
+        //marche bien
+         
+         */
+        
+        
         // test de BUGA Standard DISTANCIEL
+        System.out.println(afn3);
         System.out.println("is it standard ?");
         System.out.println(afn3.estStandard());
         System.out.println("what about now ?");
@@ -616,6 +662,7 @@ public class JFSM {
         System.out.println("what about now ?");
         System.out.println(afn3.normaliser());
         System.out.println(afn3.normaliser().estNormalise());
+        
         
    }
 

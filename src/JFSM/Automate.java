@@ -306,7 +306,7 @@ public class Automate implements Cloneable {
 		Automate afn = (Automate) this.clone();
 		
 		//Getting a Collection of values from Map 
-		Collection<Etat> values = this.Q.values();
+		Collection<Etat> values = afn.Q.values();
 		
 		//Creating an ArrayList of values 
 		ArrayList<Etat> l_etat = new ArrayList<Etat>(values);
@@ -320,8 +320,6 @@ public class Automate implements Cloneable {
 		}
 		
 		
-
-		// A compléter (complete the Method delete() in Etat)
 
 		return afn;
 	}
@@ -477,7 +475,7 @@ public class Automate implements Cloneable {
 			for(int h=0 ; h <= l_trans.size() ; h++) {
 				for(int i=0 ; i < l_trans.size() ; i++) {
 					Transition temp = l_trans.get(i);
-					if((this.isInitial(temp.cible))) {   //adding the state if the cible is final 
+					if((this.isFinal(temp.cible))) {   //adding the state if the cible is final 
 						
 						if(!(l_etatPrec.contains(temp.source))){ // and if the state does not already exist in l_etatSuivant
 							l_etatPrec.add(temp.source);
@@ -532,7 +530,7 @@ public class Automate implements Cloneable {
 				if(afn.isInitial(source)) {		
 					try {
 						//created a temporary transition with the source as the new initial state which will be added to the set of transitions
-						if(!(afn.isInitial(cible))){
+						
 							if(l_t.get(i) instanceof EpsilonTransition) {
 								try {
 									EpsilonTransition temp = new EpsilonTransition("initial", l_t.get(i).cible);
@@ -549,11 +547,6 @@ public class Automate implements Cloneable {
 								
 						
 							}
-						}
-						//removing the original transition with the old initial state as source.
-						afn.mu.remove(l_t.get(i));
-						
-						
 						
 						
 					} catch (JFSMException e) {
@@ -562,22 +555,14 @@ public class Automate implements Cloneable {
 					
 				}
 				
-				if(afn.isInitial(cible)) {
-					
-					//removing the original transition with the old initial state as cible.
-					afn.mu.remove(l_t.get(i));
-				}
-				
 			}
 			
-			//removing all the old initial states from the set Q
+			//making an ArrayList of the old initial states
 			ArrayList<String> l_initial = new ArrayList<String>();
 			l_initial.addAll(afn.I);
 			
-			for(int i = 0; i < l_initial.size(); i++) {
-				afn.Q.remove(l_initial.get(i));
-			}
 			
+
 			//clearing the old initial states set
 			afn.I.clear();
 			
@@ -586,12 +571,21 @@ public class Automate implements Cloneable {
 			} catch (JFSMException e) {
 				System.out.println("failed to set the new initial state as initial : " + e);
 			
-				
+			}
+			
+			
+			// deleting the old initial states that are no longer accessible 
+			for (int i =0 ; i < l_initial.size() ; i++) {
+				if(!(afn.isAccessible(l_initial.get(i)))) {
+					afn.getEtat(l_initial.get(i)).removeEtat(afn);
+				}
+			}
+			
+			
+			
+		
 		}
 		
-		
-		
-		}
 		return afn;
 	}
 		
@@ -642,58 +636,61 @@ public class Automate implements Cloneable {
 		Automate afn = (Automate) this.clone();
 		
 		if(!(afn.estNormalise())) {
-			System.out.println("before");
+			
 			// making the automate standard
-			afn.standardiser();
-			System.out.println("after");
+			afn = afn.standardiser();
 			
 			//creating a new  state
 			Etat finale = new Etat("finale");
-			this.addEtat(finale);
+			afn.addEtat(finale);
 			
 			// changing every cible of each transition from the old final states to the new state
 			// making an ArrayList of all the transition
 			ArrayList<Transition> l_t = new ArrayList<Transition>();
-			l_t.addAll(this.mu);
+			l_t.addAll(afn.mu);
 			
 			for(int i = 0 ; i < l_t.size() ; i++) {
-				if(this.F.contains(l_t.get(i).cible)) {
-					this.mu.remove(l_t.get(i));
+				if(afn.F.contains(l_t.get(i).cible)) {
 					if(l_t.get(i) instanceof EpsilonTransition) {
 						try {
 							EpsilonTransition temp = new EpsilonTransition(l_t.get(i).source , finale.toString());
-							this.mu.add(temp);
+							afn.mu.add(temp);
 						} catch (JFSMException e) {
 							System.out.println("Can not make the new transition + e");
 						}
 					}else {
 						try {
 							Transition temp = new Transition(l_t.get(i).source , l_t.get(i).symbol , finale.toString());
-							this.mu.add(temp);
+							afn.mu.add(temp);
 						} catch (JFSMException e) {
 							System.out.println("Can not make the new transition + e");
 						}
 					}
 				}
 			}
-			/*
-			//making a temporary set of transition
-			Set<Transition> temp = new HashSet<Transition>(l_t);
 			
-			//Updating mu with the new values from temp
-			this.mu = temp;
-			*/
-			//Deleting the old final states 
-			this.F.clear();
+			//Making an ArrayList of the old final states
+			ArrayList<String> l_final = new ArrayList<String>();
+			l_final.addAll(afn.F);
+			
+			//clearing the list of finale states
+			afn.F.clear();
+			
+			//adding the new finale state
 			try {
-				this.setFinal(finale);
+				afn.setFinal(finale);
 			} catch (JFSMException e) {
 				System.out.println("Can not make the new final state (finale a finale because it's missing) + e");
 			}
 			
-			//Making the afn emonder
+			// deleting the old final states that are no longer coaccessible
+			for (int i =0 ; i < l_final.size() ; i++) {
+				if(!(afn.isCoaccessible(l_final.get(i)))) {
+					afn.getEtat(l_final.get(i)).removeEtat(afn);
+				}
+			}
 			
-			afn.emonder();
+			
 		}
 		return afn;
 	}
