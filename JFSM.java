@@ -654,7 +654,7 @@ public class JFSM {
          
          */
         
-       /* 
+       /*
         // test de BUGA Standard DISTANCIEL
         System.out.println(afn3);
         System.out.println("is it standard ?");
@@ -662,7 +662,9 @@ public class JFSM {
         System.out.println("what about now ?");
         System.out.println(afn3.standardiser());
         System.out.println(afn3.standardiser().estStandard());
+        */
         
+        /*
         //test de BUGA Normal DISTANCIEL
         System.out.println("is it normal ?");
         System.out.println(afn3.standardiser().estNormalise());
@@ -670,7 +672,10 @@ public class JFSM {
         System.out.println(afn3.normaliser());
         System.out.println(afn3.normaliser().estNormalise());
         
+        
         */
+        
+        
    }
 
 }

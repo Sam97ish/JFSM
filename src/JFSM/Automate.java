@@ -621,8 +621,6 @@ public class Automate implements Cloneable {
 			}
 			i += 1;
 		}
-
-		// A compléter
 		
 		return ok;
 	}
@@ -702,14 +700,18 @@ public class Automate implements Cloneable {
 	public boolean estNormalise() {
 		
 		if(this.estStandard()) {
+			
 			if(this.F.size() == 1) {
+				
 				//making an ArrayList of the set F
 				ArrayList<String> l_finale = new ArrayList<String>();
 				l_finale.addAll(this.F);
 				
 				if(!(this.getEtat(l_finale.get(0)).isSource(this))) {
+					
 					System.out.println("l'automate est normalise");
 					return true;
+					
 				}else {
 					System.out.println("l'automate n'est pas normal car une etat finale est une source de transition");
 					return false;
@@ -721,9 +723,11 @@ public class Automate implements Cloneable {
 			}
 			
 		}else {
+			
 			System.out.println("l'automate n'est pas normal car il n'est pas standard.");
 			return false;
 		}
+		
 	}
 
 	/** 
