@@ -82,7 +82,9 @@ public class Etat  implements Cloneable {
 	}
 	
 	/**
-	 * Method that delete a state after deleting all it's transition
+	 *  Method that delete a state after deleting all it's transition
+	 * @param the automate of the state
+	 * @return boolean
 	 */
 	public void removeEtat(Automate afn) {
 		//making an ArrayList of all the transitions

@@ -356,8 +356,8 @@ public class Automate implements Cloneable {
 	
 	/**
 	 * Method that verifies whether the state is Accessible or not
-	 * @param name (the name of state)
-	 * @return  (true or false)
+	 * @param name 
+	 * @return  boolean
 	 */
 
 	public boolean isAccessible(String name) {
@@ -487,8 +487,8 @@ public class Automate implements Cloneable {
 				}
 				for(int i=0 ; i < l_trans.size() ; i++) {
 					Transition temp = l_trans.get(i);
-					if(l_etatPrec.contains(temp.cible)){  // adding the state if we can access it from the initial state through 
-												              // another state(s) and if the state does not already exist in l_etatSuivant
+					if(l_etatPrec.contains(temp.cible)){  // adding the state if we can access the finale state through it
+												              // and if the state does not already exist in l_etatSuivant
 						if(!(l_etatPrec.contains(temp.source))) {
 							l_etatPrec.add(temp.source);
 						}
@@ -498,7 +498,7 @@ public class Automate implements Cloneable {
 			}
 
 			
-			//return true if the state is accessible 	
+			//return true if the state is coaccessible 	
 			return(l_etatPrec.contains(name));
 		
 		}	

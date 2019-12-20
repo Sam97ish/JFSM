@@ -675,6 +675,254 @@ public class JFSM {
         
         */
         
+        //----------- Jeux d’essai tp--------------//
+        
+        //------------Standardisation------------//
+        
+        
+        //-------cas général ---------//
+        
+        /*
+        Set<String> As1 = new HashSet<String>();      
+        As1.add("a");As1.add("b");As1.add("c");
+
+        Set<Etat> Qs1 = new HashSet<Etat>();
+        Qs1.add(new Etat("1"));Qs1.add(new Etat("2"));
+        Qs1.add(new Etat("3"));Qs1.add(new Etat("4"));
+
+        Set<Transition> mus1 = new HashSet<Transition>();
+        mus1.add(new Transition("1","a","2"));
+        mus1.add(new Transition("2","b","1"));
+        mus1.add(new Transition("2","a","3"));
+        mus1.add(new Transition("3","c","4"));
+        
+        Set<String> Is1 = new HashSet<String>();
+        Is1.add("1");
+
+        Set<String> Fs1 = new HashSet<String>();
+        Fs1.add("4");
+
+        AFN afns1 = new AFN(As1, Qs1, Is1, Fs1, mus1);
+        
+        System.out.println(afns1);
+        System.out.println("is it standard ?");
+        System.out.println(afns1.estStandard());
+        System.out.println("what about now ?");
+        System.out.println(afns1.standardiser());
+        System.out.println(afns1.standardiser().estStandard());
+        */
+        
+        //----------cas avec plusieurs états initiaux----------//
+        /*
+        Set<String> As2 = new HashSet<String>();      
+        As2.add("a");As2.add("b");As2.add("c");
+
+        Set<Etat> Qs2 = new HashSet<Etat>();
+        Qs2.add(new Etat("1"));Qs2.add(new Etat("2"));
+        Qs2.add(new Etat("3"));Qs2.add(new Etat("4"));
+
+        Set<Transition> mus2 = new HashSet<Transition>();
+        mus2.add(new Transition("1","c","3"));
+        mus2.add(new Transition("1","a","2"));
+        mus2.add(new Transition("2","c","3"));
+        mus2.add(new Transition("3","b","4"));
+        
+        Set<String> Is2 = new HashSet<String>();
+        Is2.add("1");Is2.add("2");
+
+        Set<String> Fs2 = new HashSet<String>();
+        Fs2.add("4");
+
+        AFN afns2 = new AFN(As2, Qs2, Is2, Fs2, mus2);
+        
+        System.out.println(afns2);
+        System.out.println("is it standard ?");
+        System.out.println(afns2.estStandard());
+        System.out.println("what about now ?");
+        System.out.println(afns2.standardiser());
+        System.out.println(afns2.standardiser().estStandard());
+        */
+        
+        //------------cas avec des epsilon transitions ---------//
+        /*
+        
+        Set<String> As3 = new HashSet<String>();      
+        As3.add("a");As3.add("b");As3.add("c");
+
+        Set<Etat> Qs3 = new HashSet<Etat>();
+        Qs3.add(new Etat("1"));Qs3.add(new Etat("2"));
+        Qs3.add(new Etat("3"));
+
+        Set<Transition> mus3 = new HashSet<Transition>();
+        mus3.add(new Transition("1","b","2"));
+        mus3.add(new Transition("2","c","3"));
+        mus3.add(new EpsilonTransition("2","1"));
+        
+        Set<String> Is3 = new HashSet<String>();
+        Is3.add("1");
+
+        Set<String> Fs3 = new HashSet<String>();
+        Fs3.add("3");
+
+        AFN afns3 = new AFN(As3, Qs3, Is3, Fs3, mus3);
+        
+        System.out.println(afns3);
+        System.out.println("is it standard ?");
+        System.out.println(afns3.estStandard());
+        System.out.println("what about now ?");
+        System.out.println(afns3.standardiser());
+        System.out.println(afns3.standardiser().estStandard());
+        
+        */
+        
+        //-------------normalisation---------------------//
+        
+        //----------cas général------------------//
+        /*
+        
+        Set<String> An1 = new HashSet<String>();      
+        An1.add("a");An1.add("b");An1.add("c");
+
+        Set<Etat> Qn1 = new HashSet<Etat>();
+        Qn1.add(new Etat("1"));Qn1.add(new Etat("2"));
+        Qn1.add(new Etat("3"));Qn1.add(new Etat("4"));
+
+        Set<Transition> mun1 = new HashSet<Transition>();
+        mun1.add(new Transition("1","a","2"));
+        mun1.add(new Transition("2","a","3"));
+        mun1.add(new Transition("2","b","1"));
+        mun1.add(new Transition("3","c","4"));
+        
+        Set<String> In1 = new HashSet<String>();
+        In1.add("1");
+
+        Set<String> Fn1 = new HashSet<String>();
+        Fn1.add("4");
+
+        AFN afnn1 = new AFN(An1, Qn1, In1, Fn1, mun1);
+        
+        System.out.println(afnn1);
+        System.out.println("is it normal ?");
+        System.out.println(afnn1.standardiser().estNormalise());
+        System.out.println("what about now ?");
+        System.out.println(afnn1.normaliser());
+        System.out.println(afnn1.normaliser().estNormalise());
+        */
+        
+        //----------cas d’un automate non unitaire ou non standard------//
+        
+        //1
+        /*
+        Set<String> An2 = new HashSet<String>();      
+        An2.add("a");An2.add("b");An2.add("c");
+
+        Set<Etat> Qn2 = new HashSet<Etat>();
+        Qn2.add(new Etat("1"));Qn2.add(new Etat("2"));
+        Qn2.add(new Etat("3"));Qn2.add(new Etat("4"));
+        Qn2.add(new Etat("5"));
+
+        Set<Transition> mun2 = new HashSet<Transition>();
+        mun2.add(new Transition("1","c","1"));
+        mun2.add(new Transition("1","a","2"));
+        mun2.add(new Transition("1","b","3"));
+        mun2.add(new Transition("2","b","2"));
+        mun2.add(new Transition("2","c","4"));
+        mun2.add(new Transition("3","c","5"));
+        
+        Set<String> In2 = new HashSet<String>();
+        In2.add("1");
+
+        Set<String> Fn2 = new HashSet<String>();
+        Fn2.add("4");Fn2.add("5");
+
+        AFN afnn2 = new AFN(An2, Qn2, In2, Fn2, mun2);
+        
+        System.out.println(afnn2);
+        System.out.println("is it normal ?");
+        System.out.println(afnn2.standardiser().estNormalise());
+        System.out.println("what about now ?");
+        System.out.println(afnn2.normaliser());
+        System.out.println(afnn2.normaliser().estNormalise());
+        */
+        
+        //2
+        /*
+        Set<String> An3 = new HashSet<String>();      
+        An3.add("a");An3.add("b");An3.add("c");
+
+        Set<Etat> Qn3 = new HashSet<Etat>();
+        Qn3.add(new Etat("1"));Qn3.add(new Etat("2"));
+        Qn3.add(new Etat("3"));Qn3.add(new Etat("4"));
+
+        Set<Transition> mun3 = new HashSet<Transition>();
+        mun3.add(new Transition("1","a","2"));
+        mun3.add(new Transition("1","c","3"));
+        mun3.add(new Transition("2","c","3"));
+        mun3.add(new Transition("3","b","4"));
+
+        
+        Set<String> In3 = new HashSet<String>();
+        In3.add("1");In3.add("2");
+
+        Set<String> Fn3 = new HashSet<String>();
+        Fn3.add("4");
+
+        AFN afnn3 = new AFN(An3, Qn3, In3, Fn3, mun3);
+        
+        System.out.println(afnn3);
+        System.out.println("is it normal ?");
+        System.out.println(afnn3.standardiser().estNormalise());
+        System.out.println("what about now ?");
+        System.out.println(afnn3.normaliser());
+        System.out.println(afnn3.normaliser().estNormalise());
+        
+        */
+        
+        //-------cas de plusieurs etat finaux et des epsilon transitions--//
+        
+        Set<String> An4 = new HashSet<String>();      
+        An4.add("a");An4.add("b");An4.add("c");
+
+        Set<Etat> Qn4 = new HashSet<Etat>();
+        Qn4.add(new Etat("1"));Qn4.add(new Etat("2"));
+        Qn4.add(new Etat("3"));Qn4.add(new Etat("4"));
+        Qn4.add(new Etat("5"));
+
+        Set<Transition> mun4 = new HashSet<Transition>();
+        mun4.add(new EpsilonTransition("1","1"));
+        mun4.add(new Transition("1","a","2"));
+        mun4.add(new Transition("1","b","3"));
+        mun4.add(new Transition("2","b","2"));
+        mun4.add(new EpsilonTransition("2","4"));
+        mun4.add(new EpsilonTransition("3","5"));
+
+        
+        Set<String> In4 = new HashSet<String>();
+        In4.add("1");
+
+        Set<String> Fn4 = new HashSet<String>();
+        Fn4.add("4");Fn4.add("5");
+
+        AFN afnn4 = new AFN(An4, Qn4, In4, Fn4, mun4);
+        
+        System.out.println(afnn4);
+        System.out.println("is it normal ?");
+        System.out.println(afnn4.standardiser().estNormalise());
+        System.out.println("what about now ?");
+        System.out.println(afnn4.normaliser());
+        System.out.println(afnn4.normaliser().estNormalise());
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
         
    }
 
