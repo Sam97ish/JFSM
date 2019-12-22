@@ -745,7 +745,6 @@ public class Automate implements Cloneable {
 	* @return un automate reconnaissant la mise à l'étoile
 	*/
 	public Automate etoile() {
-		System.out.println("etoile() : méthode non implémentée");
 		Automate afn = (Automate) this.clone();
 		
 		//making the automate standard
@@ -963,10 +962,9 @@ public class Automate implements Cloneable {
 
 	/** 
 	* Construit un automate reconnaissant le langage transposé
-	* @return l'automate complet
+	* @return l'automate transposé
 	*/
 	public Automate transpose() {
-		System.out.println("transpose() : méthode non implémentée");
 		
 		//Swapping the source and the cible of each transition
 		ArrayList<Transition> l_t = new ArrayList<Transition>(); //making an ArrayList of all the transitions

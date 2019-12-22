@@ -827,7 +827,7 @@ public class JFSM {
         mun2.add(new Transition("1","b","3"));
         mun2.add(new Transition("2","b","2"));
         mun2.add(new Transition("2","c","4"));
-        mun2.add(new Transition("3","c","5"));
+        mun2.add(new Transition("3","b","5"));
         
         Set<String> In2 = new HashSet<String>();
         In2.add("1");
@@ -879,7 +879,7 @@ public class JFSM {
         */
         
         //-------cas de plusieurs etat finaux et des epsilon transitions--//
-        
+        /*
         Set<String> An4 = new HashSet<String>();      
         An4.add("a");An4.add("b");An4.add("c");
 
@@ -911,16 +911,219 @@ public class JFSM {
         System.out.println("what about now ?");
         System.out.println(afnn4.normaliser());
         System.out.println(afnn4.normaliser().estNormalise());
+        */
+        
+        
+        //-------------Jeux d’essai **Tache 5,6,7**  -------//
+        
+        //*****Mise à l’etoile *******//
+        
+        //cas avec automate standard:
+        /*
+        Set<String> AM1 = new HashSet<String>();      
+        AM1.add("a");AM1.add("b");AM1.add("c");
+
+        Set<Etat> QM1 = new HashSet<Etat>();
+        QM1.add(new Etat("1"));QM1.add(new Etat("2"));
+        QM1.add(new Etat("3"));QM1.add(new Etat("4"));
+        QM1.add(new Etat("5"));
+
+        Set<Transition> muM1 = new HashSet<Transition>();
+        muM1.add(new Transition("1","a","2"));
+        muM1.add(new Transition("1","b","3"));
+        muM1.add(new Transition("2","b","2"));
+        muM1.add(new Transition("2","c","4"));
+        muM1.add(new Transition("3","a","5"));
+
+
+        Set<String> IM1 = new HashSet<String>();
+        IM1.add("1");
+
+        Set<String> FM1 = new HashSet<String>();
+        FM1.add("4");FM1.add("5");
+
+        AFN afnM1 = new AFN(AM1, QM1, IM1, FM1, muM1);
+        
+        System.out.println("afficher L’automate");
+        System.out.println(afnM1);
+        System.out.println("afficher l'automate résultant de la mise à l'étoile");
+        System.out.println(afnM1.etoile());
+        
+        */
+        
+        //cas avec automate standard
+        /*
+        
+        Set<String> AM2 = new HashSet<String>();      
+        AM2.add("a");AM2.add("b");AM2.add("c");
+
+        Set<Etat> QM2 = new HashSet<Etat>();
+        QM2.add(new Etat("1"));QM2.add(new Etat("2"));
+        QM2.add(new Etat("3"));QM2.add(new Etat("4"));
+        QM2.add(new Etat("5"));
+
+        Set<Transition> muM2 = new HashSet<Transition>();
+        muM2.add(new Transition("1","b","2"));
+        muM2.add(new Transition("2","a","1"));
+        muM2.add(new Transition("2","c","2"));
+        muM2.add(new Transition("2","b","3"));
+        muM2.add(new Transition("3","a","5"));
+        muM2.add(new Transition("3","c","4"));
+
+
+        Set<String> IM2 = new HashSet<String>();
+        IM2.add("1");
+
+        Set<String> FM2 = new HashSet<String>();
+        FM2.add("4");FM2.add("5");
+
+        AFN afnM2 = new AFN(AM2, QM2, IM2, FM2, muM2);
+        
+        System.out.println("afficher L’automate");
+        System.out.println(afnM2);
+        System.out.println("afficher L’automate après Standardisation");
+        System.out.println(afnM2.standardiser());
+        System.out.println("afficher l'automate résultant de la mise à l'étoile");
+        System.out.println(afnM2.etoile());
+        
+        */
+        
+        //cas avec automate avec epsilon transition:
+        /*
+        
+        Set<String> AM3 = new HashSet<String>();      
+        AM3.add("a");AM3.add("b");AM3.add("c");
+
+        Set<Etat> QM3 = new HashSet<Etat>();
+        QM3.add(new Etat("1"));QM3.add(new Etat("2"));
+        QM3.add(new Etat("3"));
+
+        Set<Transition> muM3 = new HashSet<Transition>();
+        muM3.add(new Transition("1","a","2"));
+        muM3.add(new Transition("3","c","3"));
+        muM3.add(new EpsilonTransition("2","3"));
+
+
+        Set<String> IM3 = new HashSet<String>();
+        IM3.add("1");
+
+        Set<String> FM3 = new HashSet<String>();
+        FM3.add("3");;
+
+        AFN afnM3 = new AFN(AM3, QM3, IM3, FM3, muM3);
+        
+        
+        System.out.println("afficher L’automate");
+        System.out.println(afnM3);
+        System.out.println("afficher l'automate résultant de la mise à l'étoile");
+        System.out.println(afnM3.etoile());
+        */
+        
+        //*****Transposé********//
+        
+        //cas automate avec un seul état initial et un seul était finale
+        /*
+        Set<String> AT1 = new HashSet<String>();      
+        AT1.add("a");AT1.add("b");AT1.add("c");
+
+        Set<Etat> QT1 = new HashSet<Etat>();
+        QT1.add(new Etat("1"));QT1.add(new Etat("2"));
+        QT1.add(new Etat("3"));QT1.add(new Etat("4"));
+
+        Set<Transition> muT1 = new HashSet<Transition>();
+        muT1.add(new Transition("1","a","2"));
+        muT1.add(new Transition("2","b","1"));
+        muT1.add(new Transition("2","a","3"));
+        muT1.add(new Transition("3","c","4"));
+
+
+        Set<String> IT1 = new HashSet<String>();
+        IT1.add("1");
+
+        Set<String> FT1 = new HashSet<String>();
+        FT1.add("4");;
+
+        AFN afnT1 = new AFN(AT1, QT1, IT1, FT1, muT1);
+        
+        System.out.println("afficher L’automate");
+        System.out.println(afnT1);
+        System.out.println("afficher l'automate résultant de la Transposé");
+        System.out.println(afnT1.transpose());
+        */
+        
+        //cas avec un automate avec plusieur états initiaux ou finales:
+        /*
+        
+        Set<String> AT2 = new HashSet<String>();      
+        AT2.add("a");AT2.add("b");AT2.add("c");
+
+        Set<Etat> QT2 = new HashSet<Etat>();
+        QT2.add(new Etat("1"));QT2.add(new Etat("2"));
+        QT2.add(new Etat("3"));QT2.add(new Etat("4"));
+        QT2.add(new Etat("5"));
+
+        Set<Transition> muT2 = new HashSet<Transition>();
+        muT2.add(new Transition("1","a","2"));
+        muT2.add(new Transition("1","b","3"));
+        muT2.add(new Transition("2","c","4"));
+        muT2.add(new Transition("3","a","5"));
+
+
+        Set<String> IT2 = new HashSet<String>();
+        IT2.add("1");IT2.add("3");
+
+        Set<String> FT2 = new HashSet<String>();
+        FT2.add("4");FT2.add("5");
+
+        AFN afnT2 = new AFN(AT2, QT2, IT2, FT2, muT2);
+        
+        
+        System.out.println("afficher L’automate");
+        System.out.println(afnT2);
+        System.out.println("afficher l'automate résultant de la Transposé");
+        System.out.println(afnT2.transpose());
+        
+        */
+        
+        //cas avec des epsilon de transition:
+        /*
+        Set<String> AT3 = new HashSet<String>();      
+        AT3.add("a");AT3.add("b");AT3.add("c");
+
+        Set<Etat> QT3 = new HashSet<Etat>();
+        QT3.add(new Etat("1"));QT3.add(new Etat("2"));
+        QT3.add(new Etat("3"));
+        
+
+        Set<Transition> muT3 = new HashSet<Transition>();
+        muT3.add(new Transition("1","a","2"));
+        muT3.add(new Transition("2","b","1"));
+        muT3.add(new EpsilonTransition("2","3"));
+        muT3.add(new Transition("3","c","3"));
+
+
+
+        Set<String> IT3 = new HashSet<String>();
+        IT3.add("1");
+
+        Set<String> FT3 = new HashSet<String>();
+        FT3.add("3");
+
+        AFN afnT3 = new AFN(AT3, QT3, IT3, FT3, muT3);
+        
+        
+        System.out.println("afficher L’automate");
+        System.out.println(afnT3);
+        System.out.println("afficher l'automate résultant de la Transposé");
+        System.out.println(afnT3.transpose());
+        */
         
         
         
         
         
         
-        
-        
-        
-        
+
 
         
         
