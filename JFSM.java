@@ -1,4 +1,8 @@
 /**
+ *
+ * ALKHAFAJI Husamu Aldeen
+ * BAMATRAF Abrahim Fekri
+ * Group : 386
  * 
  * Copyright (C) 2017 Emmanuel DESMONTILS
  * 
@@ -565,7 +569,7 @@ public class JFSM {
         System.out.println(afnT1.transpose());
         */
         
-        //cas avec un automate avec plusieur états initiaux ou finales:
+        //cas avec un automate de plusieurs états initiaux ou finales:
         /*
         
         Set<String> AT2 = new HashSet<String>();      
