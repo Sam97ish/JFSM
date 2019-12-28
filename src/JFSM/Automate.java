@@ -356,8 +356,8 @@ public class Automate implements Cloneable {
 	
 	/**
 	 * Method that verifies whether the state is Accessible or not
-	 * @param name (the name of state)
-	 * @return  (true or false)
+	 * @param name 
+	 * @return  boolean
 	 */
 
 	public boolean isAccessible(String name) {
@@ -487,8 +487,8 @@ public class Automate implements Cloneable {
 				}
 				for(int i=0 ; i < l_trans.size() ; i++) {
 					Transition temp = l_trans.get(i);
-					if(l_etatPrec.contains(temp.cible)){  // adding the state if we can access it from the initial state through 
-												              // another state(s) and if the state does not already exist in l_etatSuivant
+					if(l_etatPrec.contains(temp.cible)){  // adding the state if we can access the finale state through it
+												              // and if the state does not already exist in l_etatSuivant
 						if(!(l_etatPrec.contains(temp.source))) {
 							l_etatPrec.add(temp.source);
 						}
@@ -498,7 +498,7 @@ public class Automate implements Cloneable {
 			}
 
 			
-			//return true if the state is accessible 	
+			//return true if the state is coaccessible 	
 			return(l_etatPrec.contains(name));
 		
 		}	
@@ -621,8 +621,6 @@ public class Automate implements Cloneable {
 			}
 			i += 1;
 		}
-
-		// A compléter
 		
 		return ok;
 	}
@@ -702,14 +700,18 @@ public class Automate implements Cloneable {
 	public boolean estNormalise() {
 		
 		if(this.estStandard()) {
+			
 			if(this.F.size() == 1) {
+				
 				//making an ArrayList of the set F
 				ArrayList<String> l_finale = new ArrayList<String>();
 				l_finale.addAll(this.F);
 				
 				if(!(this.getEtat(l_finale.get(0)).isSource(this))) {
+					
 					System.out.println("l'automate est normalise");
 					return true;
+					
 				}else {
 					System.out.println("l'automate n'est pas normal car une etat finale est une source de transition");
 					return false;
@@ -721,9 +723,11 @@ public class Automate implements Cloneable {
 			}
 			
 		}else {
+			
 			System.out.println("l'automate n'est pas normal car il n'est pas standard.");
 			return false;
 		}
+		
 	}
 
 	/** 
@@ -741,7 +745,6 @@ public class Automate implements Cloneable {
 	* @return un automate reconnaissant la mise à l'étoile
 	*/
 	public Automate etoile() {
-		System.out.println("etoile() : méthode non implémentée");
 		Automate afn = (Automate) this.clone();
 		
 		//making the automate standard
@@ -959,10 +962,9 @@ public class Automate implements Cloneable {
 
 	/** 
 	* Construit un automate reconnaissant le langage transposé
-	* @return l'automate complet
+	* @return l'automate transposé
 	*/
 	public Automate transpose() {
-		System.out.println("transpose() : méthode non implémentée");
 		
 		//Swapping the source and the cible of each transition
 		ArrayList<Transition> l_t = new ArrayList<Transition>(); //making an ArrayList of all the transitions
